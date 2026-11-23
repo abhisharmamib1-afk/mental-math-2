@@ -1,0 +1,534 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#101827"><meta name="description" content="A focused RBI Grade B mental maths trainer.">
+<title>RBI Mental Maths</title>
+<style>
+:root{--bg:#f5f4f0;--card:#fff;--ink:#172033;--muted:#778094;--line:#e8e8e4;--navy:#101827;--gold:#d6a94d;--green:#177b59;--red:#b84646;--shadow:0 8px 28px #14213b0d}
+*{box-sizing:border-box}html{background:var(--bg)}body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background:var(--bg);min-height:100vh}
+button,input,select{font:inherit}button{cursor:pointer;border:0}.app{max-width:520px;margin:auto;min-height:100vh;padding:0 16px 104px}
+.top{margin:0 -16px;padding:20px 20px 18px;background:var(--navy);color:#fff;border-radius:0 0 24px 24px}
+.topline{display:flex;align-items:center;justify-content:space-between}.brand{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#c4cad4;font-weight:750}.streak{font-size:12px;color:#f3d48e;background:#ffffff12;padding:7px 10px;border-radius:20px}
+h1{font-size:25px;line-height:1.15;margin:15px 0 6px;letter-spacing:-.04em}.sub{font-size:13px;color:#b9c1ce}.progressline{height:5px;background:#ffffff20;border-radius:9px;margin-top:18px;overflow:hidden}.progressline span{display:block;height:100%;background:var(--gold);width:0%;transition:.2s}
+.section{margin-top:22px}.eyebrow{font-size:11px;font-weight:800;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.levels{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.level{background:var(--card);border:1px solid var(--line);border-radius:15px;padding:13px 10px;text-align:left;box-shadow:var(--shadow);color:var(--ink)}.level b{display:block;font-size:14px}.level small{display:block;color:var(--muted);font-size:10px;margin-top:4px;line-height:1.3}.level.active{border:1.5px solid var(--navy);background:#eef1f5}
+.topics{display:flex;gap:8px;overflow:auto;padding:1px 0 4px;scrollbar-width:none}.topics::-webkit-scrollbar{display:none}.chip{white-space:nowrap;border:1px solid var(--line);background:#fff;color:#536075;border-radius:22px;padding:9px 13px;font-size:12px;font-weight:650}.chip.active{background:var(--navy);border-color:var(--navy);color:#fff}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:17px;box-shadow:var(--shadow)}.row{display:flex;align-items:center;justify-content:space-between;gap:10px}.muted{color:var(--muted)}.tiny{font-size:11px}.startbtn{width:100%;background:var(--navy);color:#fff;border-radius:14px;padding:15px;font-weight:750;margin-top:15px}.startbtn:active{transform:scale(.99)}.ghost{background:#f0f1f3;color:var(--ink);padding:10px 12px;border-radius:11px;font-size:12px;font-weight:700}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.stat{background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px}.stat strong{font-size:20px;display:block}.stat span{font-size:10px;color:var(--muted)}
+#quiz{display:none}.qtop{display:flex;justify-content:space-between;align-items:center}.timer{font-variant-numeric:tabular-nums;font-weight:800;color:var(--red)}.question{font-size:clamp(27px,8vw,39px);font-weight:800;letter-spacing:-.04em;text-align:center;padding:35px 4px 24px;min-height:130px;display:flex;align-items:center;justify-content:center;overflow-wrap:anywhere}.answer{width:100%;border:1.5px solid #dfe2e7;border-radius:14px;padding:15px;font-size:22px;text-align:center;outline:none;background:#fbfbfa;font-weight:700}.answer:focus{border-color:#59677e}.feedback{min-height:26px;text-align:center;font-size:13px;padding-top:10px;font-weight:700}.feedback.good{color:var(--green)}.feedback.bad{color:var(--red)}.actions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:12px}.actions button{padding:13px;border-radius:13px;font-weight:750}.submit{background:var(--navy);color:white}.skip{background:#f0f1f3;color:#485267}.solution{display:none;background:#f6f7f8;border-radius:12px;padding:12px;margin-top:12px;font-size:12px;line-height:1.55;color:#4e596b}.bottomnav{position:fixed;bottom:0;left:0;right:0;background:#fffffff2;backdrop-filter:blur(12px);border-top:1px solid var(--line);padding:10px max(16px,calc((100vw - 488px)/2)) calc(10px + env(safe-area-inset-bottom));display:flex;justify-content:space-around;z-index:5}.navbtn{background:none;color:#8790a0;font-size:10px;font-weight:700;display:grid;gap:4px;justify-items:center}.navbtn span{font-size:19px}.navbtn.active{color:var(--navy)}
+.view{display:none}.view.active{display:block}.note{font-size:11px;line-height:1.5;color:var(--muted)}.historyitem{display:flex;justify-content:space-between;padding:11px 0;border-bottom:1px solid var(--line);font-size:12px}.settingsrow{padding:13px 0;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;font-size:13px}.settingsrow select{border:1px solid var(--line);border-radius:9px;padding:7px;background:white}.pill{background:#f3f4f6;border-radius:20px;padding:5px 8px;font-size:10px;color:#596579}
+@media(min-width:600px){body{padding-top:20px}.app{border:1px solid #e5e4df;border-radius:26px;overflow:hidden;background:var(--bg);box-shadow:0 20px 70px #14213b12}.top{border-radius:0}}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="top">
+ <div class="topline"><div class="brand">RBI • Calculation Lab</div><div class="streak" id="streak">✦ Daily practice</div></div>
+ <h1>Train your calculation speed.</h1><div class="sub">Short, focused drills. Stronger mental maths, one level at a time.</div>
+ <div class="progressline"><span id="progress"></span></div>
+</header>
+<main>
+<section id="home" class="view active">
+ <div class="section"><div class="eyebrow">Choose your level</div>
+ <div class="levels">
+  <button class="level active" data-level="Intermediate"><b>Intermediate</b><small>Build speed & confidence</small></button>
+  <button class="level" data-level="Advanced"><b>Advanced</b><small>More steps, larger values</small></button>
+  <button class="level" data-level="Pro"><b>Pro</b><small>Exam-pressure calculations</small></button>
+ </div></div>
+ <div class="section"><div class="eyebrow">Choose a drill</div><div class="topics" id="topics">
+ <button class="chip active" data-topic="Mixed">Mixed</button><button class="chip" data-topic="Multiplication">Multiply</button><button class="chip" data-topic="Division">Divide</button><button class="chip" data-topic="Addition & subtraction">Add / subtract</button><button class="chip" data-topic="Percentages">Percentages</button><button class="chip" data-topic="Simplification">Simplification</button><button class="chip" data-topic="Recall">Recall bank</button>
+ </div></div>
+ <div class="section panel">
+  <div class="row"><div><div class="eyebrow" style="margin:0 0 5px">Today's practice</div><b id="levelSummary">Intermediate • Mixed calculations</b></div><span class="pill">10 questions</span></div>
+  <p class="note" id="levelDescription">Start with controlled numbers, useful shortcuts and two-step calculations. Move up when accuracy is consistent.</p>
+  <div class="row"><span class="tiny muted">Round duration</span><select id="duration" aria-label="Round duration" style="border:1px solid var(--line);border-radius:9px;padding:7px"><option value="10">10 questions</option><option value="15">15 questions</option><option value="20">20 questions</option></select></div>
+  <button class="startbtn" id="start">Start practice →</button>
+ </div>
+ <div class="section"><div class="eyebrow">Your progress</div><div class="stats">
+ <div class="stat"><strong id="totalDone">0</strong><span>Answered</span></div><div class="stat"><strong id="accuracy">—</strong><span>Accuracy</span></div><div class="stat"><strong id="bestStreak">0</strong><span>Best round</span></div>
+ </div></div>
+ <div class="section panel">
+  <div class="row"><b>Adaptive coach</b><span class="pill" id="adaptiveStatus">Learning your patterns</span></div>
+  <p class="note" id="adaptiveSummary">Your response time, accuracy, skipped questions and weak sub-skills will shape future practice sets.</p>
+  <div id="weakAreas" class="note"></div>
+  <div class="row" style="margin-top:10px"><span class="tiny muted">Current adaptive tier</span><b id="adaptiveTier">Intermediate</b></div>
+ </div>
+ <p class="note section">Questions are generated from large number ranges. The app avoids repeating a question in a round and remembers previous questions on this device to reduce repeats across sessions.</p>
+</section>
+<section id="quiz" class="view">
+ <div class="section panel">
+  <div class="qtop"><span class="pill" id="quizMeta">Intermediate • Mixed</span><span class="timer" id="clock">00:00</span></div>
+  <div class="row tiny muted" style="margin-top:14px"><span id="qCount">Question 1 of 10</span><span id="score">0 correct</span></div>
+  <div class="question" id="question">—</div>
+  <input class="answer" id="answer" inputmode="decimal" autocomplete="off" placeholder="Your answer" aria-label="Your answer">
+  <div class="feedback" id="feedback"></div>
+  <div class="actions"><button class="submit" id="check">Check answer</button><button class="skip" id="skip">Skip question</button></div>
+  <div class="solution" id="solution"></div>
+  <div class="row" style="margin-top:14px"><button class="ghost" id="endRound">End round</button><span class="tiny muted">Enter ↵ to submit</span></div>
+ </div>
+</section>
+<section id="results" class="view">
+ <div class="section panel" style="text-align:center">
+  <div class="eyebrow">Round complete</div><div style="font-size:38px;font-weight:850" id="resultPct">0%</div><b id="resultTitle">Good work.</b><p class="note" id="resultText"></p>
+  <div class="stats" style="margin-top:18px"><div class="stat"><strong id="rCorrect">0</strong><span>Correct</span></div><div class="stat"><strong id="rWrong">0</strong><span>Incorrect</span></div><div class="stat"><strong id="rTime">0s</strong><span>Avg / question</span></div></div>
+  <button class="startbtn" id="again">Practise again →</button><button class="ghost" style="margin-top:9px;width:100%" id="toHome">Back to home</button>
+ </div>
+ <div class="section panel"><b>Review your answers</b><div id="review"></div></div>
+</section>
+<section id="progressView" class="view">
+ <div class="section"><div class="eyebrow">Performance</div><div class="stats"><div class="stat"><strong id="pAnswered">0</strong><span>Total answered</span></div><div class="stat"><strong id="pAccuracy">—</strong><span>Accuracy</span></div><div class="stat"><strong id="pRounds">0</strong><span>Rounds</span></div></div></div>
+ <div class="section panel"><b>Recent rounds</b><div id="history"></div></div>
+ <div class="section panel"><b>Question bank coverage</b><p class="note">The fraction/percentage recall bank is based on your notebook. Recall questions rotate between fraction → percentage and percentage → fraction.</p><div id="bankList" class="note"></div></div>
+</section>
+<section id="settings" class="view">
+ <div class="section panel"><div class="eyebrow">Preferences</div>
+ <div class="settingsrow"><span>Show mental-method hints</span><input type="checkbox" id="hints" checked></div>
+ <div class="settingsrow"><span>Clear question history</span><button class="ghost" id="clearHistory">Clear</button></div>
+ <div class="settingsrow"><span>Reset performance stats</span><button class="ghost" id="resetStats">Reset</button></div>
+ <div class="settingsrow"><span>Three-hour practice reminders</span><label style="display:flex;align-items:center;gap:8px"><input type="checkbox" id="reminders"><span class="tiny muted">Android app only</span></label></div>
+ <p class="note" id="reminderStatus">Reminders are available when this page is running inside the Android app.</p>
+ <div class="settingsrow"><span>Export learning profile</span><button class="ghost" id="exportProfile">Export JSON</button></div>
+ <div class="settingsrow"><span>Import learning profile</span><button class="ghost" id="importProfile">Import JSON</button><input type="file" id="importFile" accept="application/json,.json" hidden></div>
+ <p class="note">Your performance profile is stored locally inside the Android app on this device. Export a backup before changing phones or uninstalling the app.</p>
+ </div>
+ <div class="section panel"><b>About reminders</b><p class="note">This single-file HTML works offline after it has been saved to your phone. Browser notifications and dependable reminders while the app is closed require an installed Android wrapper or a PWA with a service worker. This file does not pretend to schedule background alarms.</p></div>
+</section>
+</main>
+</div>
+<nav class="bottomnav">
+ <button class="navbtn active" data-view="home"><span>⌂</span>Practice</button>
+ <button class="navbtn" data-view="progressView"><span>▥</span>Progress</button>
+ <button class="navbtn" data-view="settings"><span>⚙</span>Settings</button>
+</nav>
+<script>
+(()=>{
+'use strict';
+const $=id=>document.getElementById(id);
+const STORE={
+ learning:'rbi_learning_v2',
+ stats:'rbi_stats_v2',
+ seen:'rbi_seen_v2'
+};
+const load=(key,fallback)=>{try{return JSON.parse(localStorage.getItem(key))??fallback}catch{return fallback}};
+const save=(key,value)=>localStorage.setItem(key,JSON.stringify(value));
+const clamp=(v,min,max)=>Math.max(min,Math.min(max,v));
+const rand=(min,max)=>Math.floor(Math.random()*(max-min+1))+min;
+const pick=arr=>arr[rand(0,arr.length-1)];
+const shuffle=arr=>{const a=[...arr];for(let i=a.length-1;i>0;i--){const j=rand(0,i);[a[i],a[j]]=[a[j],a[i]];}return a;};
+const fmt=n=>Number.isInteger(n)?String(n):String(Number(n.toFixed(4)));
+const pctText=n=>`${Number(n.toFixed(2))}%`;
+const levelNames=['Intermediate','Advanced','Pro'];
+const levelDescriptions=[
+ 'Build accuracy with manageable factors, familiar percentages and controlled multi-step arithmetic.',
+ 'Increase number size, use less obvious factors and combine calculation shortcuts.',
+ 'Work with larger values, chained operations and exam-pressure combinations.'
+];
+const fractionPairs=[
+ [1,6],[1,7],[1,8],[1,9],[1,11],[1,12],[1,13],[1,14],[1,15],[1,16],[1,17],[1,18],[1,19],[1,24],[1,60],
+ [2,15],[4,15],[7,15],[8,15],[5,16],[3,7],[3,8],[5,8],[7,8],[5,12],[7,12],[11,12],[3,16],[7,16],
+ [2,3],[1,3],[2,7],[1,14],[6,25],[2,5],[4,7],[3,4],[5,9]
+].filter((v,i,a)=>a.findIndex(x=>x[0]===v[0]&&x[1]===v[1])===i);
+const fractionRows=fractionPairs.map(([n,d])=>({n,d,percent:n/d*100,label:`${n}/${d}`}));
+const SKILLS=[
+ {id:'mul_basic',topic:'Multiplication',name:'Two-number multiplication',target:12},
+ {id:'mul_special',topic:'Multiplication',name:'Special multipliers (25, 48, 125…)',target:13},
+ {id:'division',topic:'Division',name:'Division & divisibility',target:13},
+ {id:'add_sub',topic:'Addition & subtraction',name:'Multi-number addition/subtraction',target:14},
+ {id:'percent_direct',topic:'Percentages',name:'Percentage of a quantity',target:13},
+ {id:'percent_combo',topic:'Percentages',name:'Combined percentage calculations',target:18},
+ {id:'fraction_recall',topic:'Recall',name:'Fraction ↔ percentage recall',target:8},
+ {id:'table_recall',topic:'Recall',name:'Multiplication tables (1–25)',target:6},
+ {id:'square_cube',topic:'Recall',name:'Squares (1–40) and cubes (1–20)',target:8},
+ {id:'simplify',topic:'Simplification',name:'Cancellation & chained operations',target:16},
+ {id:'square_difference',topic:'Simplification',name:'Difference of squares',target:12}
+];
+const defaultLearning={schema:2,currentLevel:0,roundCounter:0,lastStageChangeRound:0,skills:{},recentAnswers:[]};
+const defaultStats={answered:0,correct:0,rounds:[]};
+let learning=load(STORE.learning,defaultLearning);
+let stats=load(STORE.stats,defaultStats);
+let seen=load(STORE.seen,[]);
+if(!learning.schema||!learning.skills){learning={...defaultLearning};}
+if(!Array.isArray(seen))seen=[];
+let seenSet=new Set(seen);
+if(!Array.isArray(stats.rounds))stats={...defaultStats};
+stats.rounds=stats.rounds.map(r=>({...r,avgSeconds:Number(r.avgSeconds)||20,accuracy:Number.isFinite(r.accuracy)?r.accuracy:(r.total?(r.correct||0)/r.total:0)}));
+let topic='Mixed',deck=[],idx=0,correct=0,wrong=0,roundAnswers=[],roundStart=0,qStart=0,totalAnswerMs=0,tick=null,locked=false;
+let showHints=$('hints')?.checked!==false;
+const currentLevel=()=>clamp(Number(learning.currentLevel)||0,0,2);
+const levelName=()=>levelNames[currentLevel()];
+function modelFor(skillId){
+ if(!learning.skills[skillId]) learning.skills[skillId]={
+  attempts:0,correct:0,avgMs:0,recent:[],errorDebt:0,offset:0,lastSeen:0,dueAt:0,fastStreak:0,slowStreak:0
+ };
+ return learning.skills[skillId];
+}
+function saveAll(){save(STORE.learning,learning);save(STORE.stats,stats);save(STORE.seen,seen.slice(-12000));}
+function skillDifficulty(skillId){const m=modelFor(skillId);return clamp(currentLevel()+Number(m.offset||0),0,2);}
+function targetMs(skillId,diff){const s=SKILLS.find(x=>x.id===skillId);return (s?.target||13)*1000*(1+diff*.18);}
+function skillWeakness(skillId){
+ const m=modelFor(skillId);
+ if(!m.attempts)return .68;
+ const acc=(m.correct+1)/(m.attempts+2);
+ const recent=m.recent.slice(-8);
+ const recentMiss=recent.length?1-recent.filter(x=>x.ok).length/recent.length:1-acc;
+ const timeRatio=m.avgMs?m.avgMs/targetMs(skillId,skillDifficulty(skillId)):1;
+ const slow=clamp((timeRatio-.65)/1.1,0,1);
+ const due=(m.dueAt>0&&m.dueAt<=Date.now())?0.12:0;
+ const newSkill=m.attempts<5 ? 0.12 : 0;
+ return clamp((1-acc)*.42+recentMiss*.25+slow*.22+due+newSkill,0,1);
+}
+function topicSkillPool(topicName){
+ if(topicName==='Mixed')return SKILLS;
+ if(topicName==='Recall')return SKILLS.filter(s=>s.topic==='Recall');
+ return SKILLS.filter(s=>s.topic===topicName);
+}
+function weightFor(skill){
+ const m=modelFor(skill.id);
+ // Keep first-seen skills in rotation, but give recorded weaknesses a clear priority.
+ if(!m.attempts)return 1.8;
+ // Persistent error debt makes mistakes and skips influence later tests, not just this round.
+ return .8+skillWeakness(skill.id)*8+Math.min(4,m.errorDebt*.55);
+}
+function chooseSkill(pool,lastSkill,counts){
+ let available=pool.filter(s=>s.id!==lastSkill || pool.length===1);
+ // Avoid drilling one area relentlessly even when it is the weakest.
+ const total=available.reduce((sum,s)=>sum+weightFor(s)/(1+(counts[s.id]||0)*.34),0);
+ let r=Math.random()*total;
+ for(const s of available){r-=weightFor(s)/(1+(counts[s.id]||0)*.34);if(r<=0)return s;}
+ return available[available.length-1];
+}
+function makeQ(expr,answer,method,skillId,extra={}){
+ return {expr,answer,method,skillId,skillName:SKILLS.find(s=>s.id===skillId)?.name||skillId,...extra};
+}
+function genMultiplication(skillId,d){
+ let a,b,method;
+ if(skillId==='mul_basic'){
+  if(d===0){a=rand(12,68);b=rand(3,18);}
+  else if(d===1){a=rand(24,189);b=rand(12,39);}
+  else{a=rand(105,999);b=rand(16,89);}
+  return makeQ(`${a.toLocaleString('en-IN')} × ${b}`,a*b,`Split one factor into tens and units, or use a nearby round number. ${a} × ${b} = ${(a*b).toLocaleString('en-IN')}.`,skillId);
+ }
+ const factors=d===0?[16,18,20,24,25,32,40,48,50,64,75,80,99,100,125]:d===1?[24,25,32,40,48,64,75,80,96,99,125,144,250,625]:[25,48,64,75,96,99,125,144,225,250,625,999,1001];
+ a=d===0?rand(12,89):d===1?rand(35,249):rand(105,999);
+ b=pick(factors);
+ return makeQ(`${a.toLocaleString('en-IN')} × ${b}`,a*b,`Look for a factorisation or a nearby base. ${a} × ${b} = ${(a*b).toLocaleString('en-IN')}.`,skillId);
+}
+function genDivision(d){
+ const divisor=d===0?pick([6,8,9,12,15,16,18,20,24,25,32,36,40,48]):d===1?pick([12,14,15,16,18,20,24,25,28,32,36,40,48,64,75,80,125,144]):pick([16,18,24,28,32,36,48,56,64,72,75,84,96,125,144,175,225]);
+ const quotient=d===0?rand(12,85):d===1?rand(35,245):rand(125,999);
+ const dividend=divisor*quotient;
+ return makeQ(`${dividend.toLocaleString('en-IN')} ÷ ${divisor}`,quotient,`Break the divisor into convenient factors where possible. ${dividend.toLocaleString('en-IN')} ÷ ${divisor} = ${quotient}.`,'division');
+}
+function genAddSub(d){
+ const min=d===0?900:d===1?3500:12000,max=d===0?9500:d===1?85000:450000;
+ const a=rand(min,max),b=rand(min,max),floor=Math.min(a,b);
+ const c=rand(Math.floor(floor*.18),Math.max(Math.floor(floor*.2),Math.floor(floor*.48)));
+ const d2=rand(Math.floor(floor*.08),Math.max(Math.floor(floor*.1),Math.floor(floor*.22)));
+ const answer=a+b-c+d2;
+ const expr=`${a.toLocaleString('en-IN')} + ${b.toLocaleString('en-IN')} − ${c.toLocaleString('en-IN')} + ${d2.toLocaleString('en-IN')}`;
+ return makeQ(expr,answer,`Pair numbers to make round hundreds or thousands, then subtract and add the remaining terms. Result: ${answer.toLocaleString('en-IN')}.`,'add_sub');
+}
+function genPercentDirect(d){
+ const item=pick(fractionRows);
+ const multiplier=d===0?rand(20,110):d===1?rand(40,220):rand(75,450);
+ const base=item.d*multiplier;
+ const answer=base*item.n/item.d;
+ const pct=item.percent;
+ return makeQ(`${pctText(pct)} of ${base.toLocaleString('en-IN')}`,answer,`Recognise ${item.label} as the fraction for ${pctText(pct)}. Divide ${base.toLocaleString('en-IN')} by ${item.d}, then multiply by ${item.n}. Answer: ${answer.toLocaleString('en-IN')}.`,'percent_direct');
+}
+function genPercentCombo(d){
+ const x=pick(fractionRows.filter(f=>f.d<=16)),y=pick(fractionRows.filter(f=>f.d<=16));
+ const base1=x.d*rand(d===0?20:40,d===0?100:d===1?180:350);
+ const base2=y.d*rand(d===0?15:35,d===0?90:d===1?160:300);
+ const sign=Math.random()<.5?1:-1;
+ const answer=base1*x.n/x.d+sign*base2*y.n/y.d;
+ return makeQ(`${pctText(x.percent)} of ${base1.toLocaleString('en-IN')} ${sign>0?'+':'−'} ${pctText(y.percent)} of ${base2.toLocaleString('en-IN')}`,answer,`Convert both percentages into fractions. Calculate each part separately, then ${sign>0?'add':'subtract'} the results. Answer: ${fmt(answer)}.`,'percent_combo');
+}
+function genFractionRecall(){
+ const f=pick(fractionRows);
+ if(Math.random()<.5){
+  return makeQ(`${f.label} = ?%`,f.percent,`Multiply by 100: ${f.n}/${f.d} × 100 = ${pctText(f.percent)}.`,'fraction_recall');
+ }
+ return makeQ(`${pctText(f.percent)} = ? (simplest fraction)`,f.label,`Divide the percentage by 100 and simplify: ${pctText(f.percent)} = ${f.label}.`,'fraction_recall');
+}
+function genTableRecall(){
+ const a=rand(1,25),b=rand(1,25);
+ return makeQ(`${a} × ${b}`,a*b,`Recall the ${a} times table: ${a} × ${b} = ${a*b}.`,'table_recall');
+}
+function genSquareCube(){
+ if(Math.random()<.68){
+  const n=rand(1,40);return makeQ(`${n}²`,n*n,`Square ${n}: ${n} × ${n} = ${n*n}.`,'square_cube');
+ }
+ const n=rand(1,20);return makeQ(`${n}³`,n*n*n,`Cube ${n}: ${n} × ${n} × ${n} = ${n*n*n}.`,'square_cube');
+}
+function genSimplify(d){
+ const mode=pick(['cancel','chain']);
+ let a,b,c,ans,expr,method;
+ if(mode==='cancel'){
+  a=pick(d===0?[24,32,48,64,72,96,125,144]:[48,64,72,96,125,144,225,256,375,625]);
+  b=pick([25,32,40,48,64,75,80,125]);
+  c=pick([4,5,6,8,10,12,15,16,20,24,25]);
+  ans=a*b/c;
+  if(!Number.isInteger(ans))return genSimplify(d);
+  expr=`${a} × ${b} ÷ ${c}`;method=`Cancel common factors before multiplying. ${a} × ${b} ÷ ${c} = ${ans}.`;
+ }else if(mode==='chain'){
+  b=pick([12,15,16,18,20,24,25,32,40,48,64,75,80,125]);
+  c=pick([2,3,4,5,6,8,10,12,15]);
+  a=c*rand(d===0?8:20,d===0?45:d===1?110:250);
+  ans=a/c*b;expr=`${a} ÷ ${c} × ${b}`;method=`Work left to right, or simplify the division first. Answer: ${fmt(ans)}.`;
+ }else{
+  a=rand(d===0?16:d===1?25:40,d===0?32:d===1?48:75);
+  b=rand(d===0?6:d===1?12:18,Math.max(d===0?7:d===1?13:19,a-1));
+  ans=a*a-b*b;expr=`${a}² − ${b}²`;method=`Use difference of squares: (${a} − ${b}) × (${a} + ${b}) = ${ans}.`;
+ }
+ return makeQ(expr,ans,method,'simplify');
+}
+const generators={
+ mul_basic:d=>genMultiplication('mul_basic',d),
+ mul_special:d=>genMultiplication('mul_special',d),
+ division:d=>genDivision(d),
+ add_sub:d=>genAddSub(d),
+ percent_direct:d=>genPercentDirect(d),
+ percent_combo:d=>genPercentCombo(d),
+ fraction_recall:()=>genFractionRecall(),
+ table_recall:()=>genTableRecall(),
+ square_cube:()=>genSquareCube(),
+ simplify:d=>genSimplify(d),
+ square_difference:d=>{const a=rand(d===0?16:d===1?25:40,d===0?32:d===1?48:75);const b=rand(d===0?6:d===1?12:18,Math.max(d===0?7:d===1?13:19,a-1));const ans=a*a-b*b;return makeQ(`${a}² − ${b}²`,ans,`Use difference of squares: (${a} − ${b}) × (${a} + ${b}) = ${ans}.`,'square_difference');}
+};
+function questionKey(q){return `${q.expr.replace(/\s+/g,'').toLowerCase()}=${String(q.answer).replace(/\s+/g,'').toLowerCase()}`;}
+function buildDeck(){
+ const pool=topicSkillPool(topic);
+ const size=Number($('duration').value);
+ const out=[],within=new Set(),counts={};
+ let lastSkill='',attempts=0;
+ while(out.length<size&&attempts<size*180){
+  attempts++;
+  const skill=chooseSkill(pool,lastSkill,counts);
+  const d=skillDifficulty(skill.id);
+  let q=generators[skill.id](d);
+  const key=questionKey(q);
+  if(within.has(key)||seenSet.has(key))continue;
+  q.topic=skill.topic;q.difficulty=d;q.sessionLevel=levelName();
+  out.push(q);within.add(key);counts[skill.id]=(counts[skill.id]||0)+1;lastSkill=skill.id;
+ }
+ // If the stored history is exhausted for a finite recall bank, still avoid repeats inside this round.
+ attempts=0;
+ while(out.length<size&&attempts<size*180){
+  attempts++;
+  const skill=chooseSkill(pool,lastSkill,counts);
+  let q=generators[skill.id](skillDifficulty(skill.id)),key=questionKey(q);
+  if(within.has(key))continue;
+  q.topic=skill.topic;q.difficulty=skillDifficulty(skill.id);q.sessionLevel=levelName();
+  out.push(q);within.add(key);counts[skill.id]=(counts[skill.id]||0)+1;lastSkill=skill.id;
+ }
+ return out;
+}
+function refreshLevelUI(){
+ document.querySelectorAll('.level').forEach(b=>b.classList.toggle('active',levelNames[currentLevel()]===b.dataset.level));
+ $('levelSummary').textContent=levelName()+' • '+(topic==='Mixed'?'Mixed calculations':topic);
+ $('levelDescription').textContent=levelDescriptions[currentLevel()];
+ $('adaptiveTier').textContent=levelName();
+}
+function showView(id){
+ document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+ $(id).classList.add('active');
+ document.querySelectorAll('.navbtn').forEach(b=>b.classList.toggle('active',b.dataset.view===id));
+ if(id==='progressView')renderProgress();
+}
+document.querySelectorAll('.navbtn').forEach(b=>b.onclick=()=>showView(b.dataset.view));
+document.querySelectorAll('.level').forEach(b=>b.onclick=()=>{
+ const chosen=levelNames.indexOf(b.dataset.level);
+ if(chosen<0)return;
+ learning.currentLevel=chosen;saveAll();refreshLevelUI();updateStats();
+});
+document.querySelectorAll('.chip').forEach(b=>b.onclick=()=>{
+ topic=b.dataset.topic;
+ document.querySelectorAll('.chip').forEach(x=>x.classList.toggle('active',x===b));
+ refreshLevelUI();
+});
+function renderQuestion(){
+ const q=deck[idx];if(!q){finishRound();return;}
+ qStart=performance.now();locked=false;
+ $('quizMeta').textContent=`${q.sessionLevel} • ${q.skillName}`;
+ $('qCount').textContent=`Question ${idx+1} of ${deck.length}`;
+ $('score').textContent=`${correct} correct`;
+ $('question').textContent=q.expr;
+ $('answer').value='';
+ $('feedback').textContent='';
+ $('feedback').className='feedback';
+ $('solution').style.display='none';$('solution').textContent='';
+ $('check').disabled=false;
+ $('progress').style.width=(idx/deck.length*100)+'%';
+ $('answer').focus({preventScroll:true});
+}
+function isAnswerCorrect(input,expected){
+ if(typeof expected==='string')return input.trim().replace(/\s+/g,'').toLowerCase()===expected.toLowerCase();
+ const n=Number(input.replace(/,/g,''));
+ return input.trim()!==''&&Number.isFinite(n)&&Math.abs(n-expected)<=Math.max(.03,Math.abs(expected)*.00001);
+}
+function updateSkillAfterAnswer(q,ok,ms,skipped){
+ const m=modelFor(q.skillId),now=Date.now(),d=q.difficulty;
+ m.attempts++;if(ok)m.correct++;
+ m.avgMs=m.avgMs?m.avgMs*.72+ms*.28:ms;
+ m.recent.push({ok,ms,d,at:now});m.recent=m.recent.slice(-12);
+ m.lastSeen=now;
+ const target=targetMs(q.skillId,d);
+ if(!ok){m.errorDebt=Math.min(10,(m.errorDebt||0)+1.2);m.dueAt=now+1000;m.fastStreak=0;m.slowStreak=(m.slowStreak||0)+1;}
+ else{
+  m.errorDebt=Math.max(0,(m.errorDebt||0)-(ms<target*.85?.65:.2));
+  m.dueAt=now+(ms>target*1.3?6:36)*60*60*1000;
+  m.fastStreak=ms<target*.85?(m.fastStreak||0)+1:0;
+  m.slowStreak=0;
+ }
+ const recent=m.recent.slice(-8),n=recent.length,acc=n?recent.filter(x=>x.ok).length/n:0,avg=n?recent.reduce((sum,x)=>sum+x.ms,0)/n:ms;
+ if(n>=6&&acc>=.875&&avg<target*.9)m.offset=clamp((m.offset||0)+1,-1,1);
+ else if((n>=5&&acc<.55)||(m.slowStreak>=3))m.offset=clamp((m.offset||0)-1,-1,1);
+ learning.recentAnswers.unshift({skill:q.skillId,ok,ms,at:now});learning.recentAnswers=learning.recentAnswers.slice(0,100);
+}
+function answerCurrent(skipped=false){
+ if(locked||!deck[idx])return;locked=true;
+ const q=deck[idx],input=$('answer').value.trim(),ms=Math.max(250,performance.now()-qStart);
+ const ok=!skipped&&isAnswerCorrect(input,q.answer);
+ if(ok)correct++;else wrong++;
+ totalAnswerMs+=ms;
+ updateSkillAfterAnswer(q,ok,ms,skipped);
+ const key=questionKey(q);seen.push(key);seenSet.add(key);if(seen.length>12000){seen=seen.slice(-10000);seenSet=new Set(seen);}
+ stats.answered++;if(ok)stats.correct++;
+ saveAll();
+ roundAnswers.push({expr:q.expr,answer:typeof q.answer==='number'?fmt(q.answer):q.answer,user:skipped?'Skipped':input||'—',ok,method:q.method,skill:q.skillName,ms});
+ $('feedback').textContent=ok?'Correct ✓':skipped?`Skipped — answer: ${fmtAnswer(q.answer)}`:`Not quite — answer: ${fmtAnswer(q.answer)}`;
+ $('feedback').className='feedback '+(ok?'good':'bad');
+ $('solution').innerHTML=`<b>Quick method</b><br>${q.method}`;
+ $('solution').style.display=showHints?'block':'none';
+ $('check').disabled=true;$('score').textContent=`${correct} correct`;
+ setTimeout(()=>{idx++;renderQuestion();},900);
+}
+function fmtAnswer(a){return typeof a==='number'?fmt(a):a;}
+$('check').onclick=()=>answerCurrent(false);
+$('skip').onclick=()=>answerCurrent(true);
+$('answer').addEventListener('keydown',e=>{if(e.key==='Enter'&&!locked)answerCurrent(false);});
+$('start').onclick=()=>{
+ deck=buildDeck();
+ if(!deck.length){alert('Could not create a fresh set in this topic. Try another topic or clear the question history.');return;}
+ idx=correct=wrong=0;totalAnswerMs=0;roundAnswers=[];
+ roundStart=Date.now();$('progress').style.width='0%';
+ showView('quiz');renderQuestion();clearInterval(tick);
+ tick=setInterval(()=>{
+  const s=Math.floor((Date.now()-roundStart)/1000);
+  $('clock').textContent=String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');
+ },500);
+};
+function adjustOverallDifficulty(round){
+ const recent=stats.rounds.slice(0,2);
+ const count=recent.reduce((s,r)=>s+r.total,0);
+ if(count<15||learning.roundCounter-(learning.lastStageChangeRound||0)<2)return;
+ const acc=recent.reduce((s,r)=>s+r.correct,0)/count;
+ const avg=recent.reduce((s,r)=>s+r.avgSeconds*r.total,0)/count;
+ const target=[14,17,20][currentLevel()];
+ if(acc>=.88&&avg<=target){
+  learning.currentLevel=clamp(currentLevel()+1,0,2);
+  learning.lastStageChangeRound=learning.roundCounter;
+ }else if(acc<.55||avg>target*1.55){
+  learning.currentLevel=clamp(currentLevel()-1,0,2);
+  learning.lastStageChangeRound=learning.roundCounter;
+ }
+}
+function updateAdaptivePanel(){
+ const ranked=SKILLS.map(s=>({s,m:modelFor(s.id),weak:skillWeakness(s.id)}))
+  .filter(x=>x.m.attempts>0).sort((a,b)=>b.weak-a.weak);
+ $('adaptiveStatus').textContent=learning.roundCounter<2?'Learning your patterns':'Adapting to your performance';
+ $('adaptiveTier').textContent=levelName();
+ $('adaptiveSummary').textContent=ranked.length?
+  'The next mixed tests will deliberately give more weight to weak, slow or recently missed skills. Strong, fast areas stay in rotation but appear less often.':
+  'Complete your first practice round. The coach will start building a skill-by-skill profile.';
+ $('weakAreas').textContent=ranked.length?'Next focus: '+ranked.slice(0,3).map(x=>`${x.s.name} · ${Math.round((1-x.weak)*100)}% mastery`).join('  |  '):'No skill profile yet.';
+}
+function finishRound(){
+ clearInterval(tick);
+ const total=deck.length,accuracy=total?correct/total:0,avgSeconds=total?totalAnswerMs/total/1000:0;
+ learning.roundCounter++;
+ const completedLevel=deck[0]?.sessionLevel||levelName();
+ stats.rounds.unshift({date:new Date().toISOString(),level:completedLevel,topic,correct,total,accuracy,avgSeconds});
+ stats.rounds=stats.rounds.slice(0,40);
+ adjustOverallDifficulty(stats.rounds[0]);
+ saveAll();
+ $('progress').style.width='100%';
+ const pct=Math.round(accuracy*100);
+ $('resultPct').textContent=pct+'%';
+ $('resultTitle').textContent=pct>=90?'Strong command. Time to stretch further.':pct>=75?'Good progress. Keep refining your slower areas.':'Accuracy first. Your next round will revisit missed skills.';
+ $('resultText').textContent=`${completedLevel} • ${topic} • ${total} questions completed.`;
+ $('rCorrect').textContent=correct;$('rWrong').textContent=wrong;$('rTime').textContent=avgSeconds.toFixed(1)+'s';
+ $('review').innerHTML=roundAnswers.map((r,i)=>`<div class="historyitem"><span>${i+1}. ${r.expr}<br><span class="muted">${r.skill} · ${r.user}</span></span><b style="color:${r.ok?'var(--green)':'var(--red)'}">${r.ok?'✓':r.answer}</b></div>`).join('');
+ showView('results');updateStats();refreshLevelUI();
+}
+$('endRound').onclick=()=>{if(confirm('End this round and review your results?'))finishRound();};
+$('again').onclick=()=>$('start').click();
+$('toHome').onclick=()=>showView('home');
+function updateStats(){
+ const accuracy=stats.answered?Math.round(stats.correct/stats.answered*100):0;
+ updateAdaptivePanel();
+ $('totalDone').textContent=stats.answered;$('accuracy').textContent=stats.answered?accuracy+'%':'—';
+ $('bestStreak').textContent=stats.rounds.length?Math.max(...stats.rounds.map(r=>r.correct)):0;
+ $('streak').textContent=stats.rounds.length?`✦ ${stats.rounds.length} rounds logged`:'✦ Daily practice';
+}
+function renderProgress(){
+ updateStats();
+ $('pAnswered').textContent=stats.answered;
+ $('pAccuracy').textContent=stats.answered?Math.round(stats.correct/stats.answered*100)+'%':'—';
+ $('pRounds').textContent=stats.rounds.length;
+ $('history').innerHTML=stats.rounds.length?stats.rounds.slice(0,15).map(r=>`<div class="historyitem"><span>${new Date(r.date).toLocaleDateString()}<br><span class="muted">${r.level} • ${r.topic} · ${r.avgSeconds.toFixed(1)}s avg</span></span><b>${r.correct}/${r.total}</b></div>`).join(''):'<p class="note">Complete a practice round to see your history.</p>';
+ const focus=SKILLS.map(s=>({s,m:modelFor(s.id),weak:skillWeakness(s.id)})).filter(x=>x.m.attempts).sort((a,b)=>a.weak-b.weak);
+ $('bankList').innerHTML=focus.length?focus.map(x=>`<div class="historyitem"><span>${x.s.name}<br><span class="muted">${x.m.attempts} attempts · ${x.m.avgMs?Math.round(x.m.avgMs/1000)+'s avg':''}</span></span><b>${Math.round((1-x.weak)*100)}%</b></div>`).join(''):'No learning data yet.';
+}
+$('hints').onchange=e=>showHints=e.target.checked;
+$('clearHistory').onclick=()=>{
+ if(confirm('Clear only the no-repeat question history? Your learning profile will remain.')){seen=[];save(STORE.seen,seen);alert('Question history cleared.');}
+};
+$('resetStats').onclick=()=>{
+ if(confirm('Reset all progress, weak-area history and adaptive difficulty?')){
+  learning=JSON.parse(JSON.stringify(defaultLearning));stats=JSON.parse(JSON.stringify(defaultStats));seen=[];
+  saveAll();updateStats();renderProgress();refreshLevelUI();
+ }
+};
+$('exportProfile').onclick=()=>{
+ const backup={app:'RBI Mental Maths',version:2,exportedAt:new Date().toISOString(),learning,stats,seen};
+ const payload=JSON.stringify(backup,null,2);
+ if(window.AndroidApp&&typeof window.AndroidApp.saveBackup==='function'){
+  window.AndroidApp.saveBackup(payload);
+ }else{
+  const blob=new Blob([payload],{type:'application/json'});
+  const url=URL.createObjectURL(blob),a=document.createElement('a');
+  a.href=url;a.download='rbi-mental-maths-backup.json';document.body.appendChild(a);a.click();a.remove();
+  setTimeout(()=>URL.revokeObjectURL(url),1500);
+ }
+};
+$('importProfile').onclick=()=>$('importFile').click();
+$('importFile').onchange=async e=>{
+ const file=e.target.files?.[0];if(!file)return;
+ try{
+  const data=JSON.parse(await file.text());
+  if(data.app!=='RBI Mental Maths'||!data.learning||!data.stats)throw new Error('This is not a recognised RBI Mental Maths backup.');
+  if(!confirm('Replace the learning profile on this device with the backup?'))return;
+  learning=data.learning;stats=data.stats;seen=Array.isArray(data.seen)?data.seen:[];
+  saveAll();updateStats();renderProgress();refreshLevelUI();alert('Learning profile restored.');
+ }catch(err){alert(err.message||'Could not import this backup.');}
+ e.target.value='';
+};
+function syncReminderUI(){
+ const supported=!!(window.AndroidApp&&typeof window.AndroidApp.setReminders==='function');
+ $('reminders').disabled=!supported;
+ $('reminderStatus').textContent=supported?
+  'The Android app can schedule a reminder approximately every three hours. Android battery optimisation may delay delivery.':
+  'Three-hour background reminders are enabled only in the installed Android app, not when this HTML is opened directly.';
+ if(supported){try{$('reminders').checked=!!window.AndroidApp.remindersEnabled();}catch{}}
+}
+$('reminders').onchange=e=>{
+ if(window.AndroidApp){window.AndroidApp.setReminders(!!e.target.checked);}
+ syncReminderUI();
+};
+refreshLevelUI();updateStats();syncReminderUI();
+})();
+</script>
+</body></html>
