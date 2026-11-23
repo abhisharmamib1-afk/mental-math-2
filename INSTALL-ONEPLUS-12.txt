@@ -1,0 +1,41 @@
+NUMORA — ONEPLUS 12 INSTALL GUIDE
+
+BUILD THE APK
+
+1. Download and extract the NUMORA project ZIP on a computer.
+2. Upload the CONTENTS of the extracted folder to your GitHub repository's main branch.
+3. Confirm the workflow path is exactly .github/workflows/build-apk.yml.
+4. Open the repository's Actions tab and open "Build NUMORA Android APK".
+5. Wait for a successful run. Download the artifact named numora-android-debug-apk.
+6. Extract the artifact ZIP. The file you need is app-debug.apk.
+
+INSTALL OR UPDATE ON YOUR ONEPLUS 12
+
+1. Transfer app-debug.apk to your phone.
+2. Open it from Files / Downloads.
+3. If Android asks, allow the file manager to install unknown apps, then return to the installer.
+4. Tap Install and open NUMORA.
+5. The package ID is unchanged and the app version is 2.1.0 (versionCode 4). First open the old app and use Settings > Export backup. Then try installing this APK over it. If Android reports a signature conflict, uninstall the old app only after exporting the backup, install the new APK, and use Settings > Restore backup.
+6. Open Settings inside NUMORA and enable three-hour practice reminders if desired. Android will request notification permission when you enable them.
+
+FIRST SESSION
+
+1. Begin with Intermediate. Move to Advanced and Pro gradually as your accuracy and speed improve.
+2. Choose Mixed to let the adaptive coach choose a balanced selection weighted toward weaker or due skills.
+3. Choose 10, 15 or 20 questions and tap Start your session.
+4. Enter an answer and tap Check answer, or press Enter. Skip records a missed response and schedules earlier review.
+5. Review the quick method and your session summary after the sprint.
+
+MEMORY AND BACKUPS
+
+The app stores skill accuracy, response speed, recent errors, skips, review intervals, difficulty adjustments, recent answers, no-repeat question history, daily activity, streaks, XP, coins and badges locally on this device.
+
+Use Settings > Export backup before uninstalling, clearing app storage or changing phones. On a new installation, use Settings > Restore backup and select the exported JSON file. The app also accepts older NUMORA Mental Arithmetic backup JSON files.
+
+REMINDER NOTE
+
+The reminder starts approximately three hours after it is enabled. Android / OnePlus battery management can defer inexact alarms. Notification permission must be allowed for reminders to appear.
+
+BUILD NOTE
+
+The GitHub Actions workflow uses Android Gradle Plugin 9.5.0, Gradle 9.9.2, JDK 17, Android SDK 36, Build Tools 36.0.0 and AndroidX WebKit 1.18.0. The resulting APK is debug-signed for personal sideloading, not a Play Store release.

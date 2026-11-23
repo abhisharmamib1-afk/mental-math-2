@@ -1,0 +1,18 @@
+plugins { id 'com.android.application' }
+
+android {
+    namespace 'com.archeepal.rbimentalcoach'
+    compileSdk 36
+
+    defaultConfig {
+        applicationId 'com.archeepal.rbimentalcoach'
+        minSdk 26
+        targetSdk 36
+        versionCode 4
+        versionName '2.1.0'
+    }
+}
+
+dependencies {
+    implementation 'androidx.webkit:webkit:1.18.0'
+}

@@ -1,0 +1,910 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#F7F7F4">
+<meta name="description" content="NUMORA — focused, adaptive mental arithmetic training for RBI Grade B.">
+<meta name="color-scheme" content="light">
+<title>NUMORA — Mental Arithmetic Training</title>
+<style>
+:root{--ink:#151a31;--muted:#7d849d;--line:#e9ebf3;--paper:#f6f7fc;--white:#fff;--night:#151a32;--violet:#6558f5;--violet2:#8b7fff;--cyan:#53d5cd;--lime:#c8ed6c;--orange:#ffae67;--green:#159b78;--red:#d85f70;--shadow:0 12px 35px rgba(34,39,78,.065);--shadow2:0 20px 52px rgba(34,39,78,.12)}
+*{box-sizing:border-box}html{background:var(--paper);scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 92% 6%,rgba(101,88,245,.08),transparent 24rem),var(--paper);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;min-height:100vh}button,input,select{font:inherit}button{border:0;cursor:pointer;-webkit-tap-highlight-color:transparent}button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid rgba(101,88,245,.25);outline-offset:2px}.app{max-width:620px;margin:auto;min-height:100vh;padding:0 20px 116px;overflow:hidden}
+.top{isolation:isolate;position:relative;margin:0 -20px;padding:18px 24px 26px;background:linear-gradient(128deg,#12172c 0%,#1c2044 57%,#34285f 100%);color:#fff;border-radius:0 0 32px 32px;overflow:hidden;box-shadow:0 16px 42px rgba(21,26,50,.13)}.top:before{content:"";position:absolute;z-index:-1;width:300px;height:300px;right:-135px;top:38px;border-radius:50%;background:radial-gradient(circle,rgba(83,213,205,.22),rgba(101,88,245,.1) 48%,transparent 70%);animation:orbDrift 9s ease-in-out infinite alternate}.top:after{content:"";position:absolute;z-index:-1;width:220px;height:220px;right:-96px;top:96px;border-radius:50%;border:1px solid rgba(255,255,255,.1);box-shadow:0 0 0 20px rgba(255,255,255,.022),0 0 0 42px rgba(255,255,255,.016);animation:orbit 26s linear infinite}
+.topline{display:flex;align-items:center;justify-content:space-between;gap:12px;position:relative;z-index:2}.brandlock{display:flex;align-items:center;gap:11px;min-width:0}.brand-mark{width:38px;height:38px;display:grid;place-items:center;border-radius:13px;background:linear-gradient(145deg,var(--cyan),#9c8fff 78%);box-shadow:0 7px 20px rgba(83,213,205,.22);flex:0 0 auto}.brand-mark svg{width:25px;height:25px}.brand{font-size:17px;font-weight:950;letter-spacing:.19em;line-height:1}.brand-sub{font-size:8px;letter-spacing:.17em;color:#afb6cf;font-weight:800;margin-top:5px;white-space:nowrap}.top-actions{display:flex;align-items:center;gap:7px}.top-pill{display:flex;align-items:center;gap:6px;padding:9px 11px;border-radius:999px;border:1px solid rgba(255,255,255,.13);background:rgba(255,255,255,.08);font-size:10px;font-weight:850;color:#f7f8ff;white-space:nowrap}.top-pill .spark{color:var(--lime);font-size:13px}.hero-copy{position:relative;z-index:1;margin-top:31px;max-width:420px}.hero-kicker{display:inline-flex;align-items:center;gap:8px;color:#c5cbe0;font-size:9px;letter-spacing:.17em;font-weight:850;text-transform:uppercase}.hero-kicker:before{content:"";width:6px;height:6px;border-radius:50%;background:var(--lime);box-shadow:0 0 12px var(--lime)}h1{font-size:clamp(32px,8.6vw,43px);line-height:1.035;margin:14px 0 10px;letter-spacing:-.06em;font-weight:900;max-width:370px}h1 .accent{background:linear-gradient(90deg,var(--cyan),#c1b7ff 75%);-webkit-background-clip:text;background-clip:text;color:transparent}.sub{font-size:13px;line-height:1.6;color:#b9c1d6;max-width:350px}.hero-foot{display:flex;align-items:center;gap:8px;margin-top:19px;color:#d5d9e7;font-size:10px;font-weight:700}.hero-foot .line{width:25px;height:2px;border-radius:3px;background:linear-gradient(90deg,var(--cyan),var(--violet2))}.hero-xp{margin-top:17px;display:grid;grid-template-columns:1fr auto;align-items:center;gap:10px;max-width:380px}.hero-xp small{font-size:9px;color:#b6bdd2;font-weight:750}.hero-xp b{font-size:10px;color:#fff}.hero-xp-track{height:5px;border-radius:9px;background:rgba(255,255,255,.15);overflow:hidden;grid-column:1/3}.hero-xp-track span{height:100%;display:block;width:0;background:linear-gradient(90deg,var(--cyan),var(--lime));border-radius:9px;transition:width .5s ease}
+main{position:relative}.view{display:none}.view.active{display:block}
+.memory-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.memory-cell{background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px 12px;box-shadow:0 4px 15px rgba(34,39,78,.025)}.memory-cell b{display:block;font-size:20px;letter-spacing:-.04em;color:var(--violet);font-weight:950}.memory-cell small{display:block;margin-top:3px;color:var(--muted);font-size:9px;font-weight:750;line-height:1.25}
+.section{margin-top:25px;animation:rise .36s both}.section-head{margin-bottom:12px}.eyebrow{font-size:9px;font-weight:900;letter-spacing:.17em;text-transform:uppercase;color:#969bb0;margin-bottom:7px;display:flex;align-items:center;gap:8px}.eyebrow .num{color:var(--violet);font-variant-numeric:tabular-nums}.section-title{margin:0;font-size:18px;font-weight:900;letter-spacing:-.04em}.section-sub{margin:5px 0 0;font-size:11px;color:var(--muted);line-height:1.45}
+.levels{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.level{position:relative;min-height:110px;overflow:hidden;text-align:left;background:#fff;border:1px solid var(--line);border-radius:18px;padding:13px 11px;box-shadow:0 4px 16px rgba(34,39,78,.025);color:var(--ink);transition:transform .2s,border-color .2s,box-shadow .2s}.level:after{content:"";position:absolute;right:-22px;top:-28px;width:72px;height:72px;border-radius:50%;background:rgba(101,88,245,.05);transition:transform .25s}.level:hover{transform:translateY(-3px);box-shadow:var(--shadow2)}.level.active{border-color:rgba(101,88,245,.58);background:linear-gradient(145deg,#fff 35%,#f1efff);box-shadow:0 9px 24px rgba(101,88,245,.11)}.level.active:after{transform:scale(1.6);background:rgba(101,88,245,.1)}.level-icon{width:27px;height:27px;border-radius:9px;display:grid;place-items:center;font-size:14px;margin-bottom:8px;background:#efedff;color:var(--violet)}.level:nth-child(2) .level-icon{background:#e8fbf9;color:#199c98}.level:nth-child(3) .level-icon{background:#f3f8e7;color:#809d2d}.level b{display:block;font-size:12px;font-weight:900}.level small{display:block;color:var(--muted);font-size:9px;line-height:1.35;margin-top:4px}.level.active b{color:#5143d1}
+.topics{display:flex;gap:8px;overflow:auto;padding:2px 1px 7px;scrollbar-width:none}.topics::-webkit-scrollbar{display:none}.chip{white-space:nowrap;border:1px solid var(--line);background:#fff;color:#707891;border-radius:999px;padding:9px 13px;font-size:10px;font-weight:800;box-shadow:0 2px 7px rgba(34,39,78,.025);transition:all .18s}.chip.active{background:var(--night);border-color:var(--night);color:#fff;box-shadow:0 6px 16px rgba(21,26,50,.18)}.chip:active{transform:scale(.96)}
+.panel{background:var(--white);border:1px solid rgba(229,232,241,.95);border-radius:22px;padding:18px;box-shadow:var(--shadow)}.focus-card{position:relative;isolation:isolate;overflow:hidden;background:linear-gradient(137deg,#fff 0%,#f6f5ff 80%);border-color:rgba(101,88,245,.14)}.focus-card:after{content:"";position:absolute;z-index:-1;right:-47px;top:-65px;width:185px;height:185px;border-radius:50%;border:1px solid rgba(101,88,245,.11);box-shadow:0 0 0 18px rgba(101,88,245,.025),0 0 0 38px rgba(101,88,245,.018)}.row{display:flex;align-items:center;justify-content:space-between;gap:10px;position:relative;z-index:1}.muted{color:var(--muted)}.tiny{font-size:10px}.note{font-size:11px;line-height:1.6;color:var(--muted)}.focus-title{font-size:15px;font-weight:900;letter-spacing:-.03em}.pill{background:#efedff;border:1px solid rgba(101,88,245,.1);border-radius:999px;padding:6px 10px;font-size:9px;font-weight:850;color:#5347cf;white-space:nowrap}.duration-select{border:1px solid var(--line);border-radius:11px;padding:9px 10px;background:#fff;color:var(--ink);font-size:11px;font-weight:800;outline:none}.startbtn{position:relative;isolation:isolate;overflow:hidden;width:100%;border-radius:15px;padding:15px;background:linear-gradient(105deg,#594be7,#7d6bff 65%,#4dcac3);color:#fff;font-size:12px;font-weight:900;margin-top:16px;box-shadow:0 10px 22px rgba(94,79,228,.22);transition:transform .18s,box-shadow .18s}.startbtn:before{content:"";position:absolute;z-index:-1;top:-50%;left:-40%;width:25%;height:220%;transform:rotate(25deg);background:linear-gradient(90deg,transparent,rgba(255,255,255,.28),transparent);animation:shine 5s ease-in-out infinite}.startbtn:active{transform:translateY(1px) scale(.985);box-shadow:0 4px 12px rgba(94,79,228,.18)}.ghost{background:#eff1f7;color:#4f5871;padding:10px 12px;border-radius:11px;font-size:10px;font-weight:850;transition:transform .18s}.ghost:active{transform:scale(.97)}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.stat{background:#fff;border:1px solid var(--line);border-radius:16px;padding:13px 12px;min-width:0;box-shadow:0 4px 15px rgba(34,39,78,.025)}.stat strong{display:block;font-size:21px;letter-spacing:-.05em;font-weight:950;color:var(--ink)}.stat span{font-size:9px;color:var(--muted);font-weight:750}.stat:nth-child(1) strong{color:var(--violet)}.stat:nth-child(2) strong{color:#1baba3}.stat:nth-child(3) strong{color:#8ba63b}
+.quest-card{padding:17px 18px;background:linear-gradient(120deg,#fff8ee,#fff 75%);border:1px solid #f6e9d8;border-radius:20px;box-shadow:0 6px 20px rgba(71,51,29,.035)}.quest-icon{width:32px;height:32px;border-radius:11px;background:#ffefd9;color:#ce8735;display:grid;place-items:center;font-size:16px}.quest-track{height:7px;border-radius:9px;background:#f2e9dc;overflow:hidden;margin-top:12px}.quest-track span{display:block;height:100%;width:0;background:linear-gradient(90deg,#ffb46e,#e9d36b);border-radius:9px;transition:width .5s}.quest-line{font-size:10px;color:#8b7765;font-weight:800}.quest-reward{font-size:9px;color:#b57b38;font-weight:900;white-space:nowrap}
+.coach-panel{background:linear-gradient(115deg,#171c35,#27244d);border:0;color:#fff;box-shadow:0 14px 34px rgba(23,29,53,.13);position:relative;overflow:hidden}.coach-panel:after{content:"";position:absolute;right:-48px;bottom:-85px;width:190px;height:190px;border-radius:50%;border:1px solid rgba(83,213,205,.2);box-shadow:0 0 0 18px rgba(83,213,205,.03),0 0 0 39px rgba(83,213,205,.022)}.coach-panel .note{color:#aeb7d0}.coach-panel .eyebrow{color:#9ea7c7}.coach-panel b{color:#fff}.coach-panel .pill{background:rgba(83,213,205,.12);border-color:rgba(83,213,205,.18);color:#91e6df}.coach-heading{display:flex;align-items:center;gap:9px;font-size:13px;font-weight:900}.coach-icon{display:grid;place-items:center;width:30px;height:30px;background:linear-gradient(140deg,var(--cyan),#8f82ff);border-radius:10px;color:#11172b;font-size:16px}.coach-panel #weakAreas{color:#c8cde0;position:relative;z-index:1}.reward-preview{display:flex;align-items:center;justify-content:space-between;gap:12px;background:linear-gradient(120deg,#f1f0ff,#fff);border:1px solid #e5e2ff;border-radius:19px;padding:15px 16px}.reward-orb{width:42px;height:42px;flex:0 0 auto;border-radius:50%;display:grid;place-items:center;background:linear-gradient(140deg,#9b8fff,#5e51e9);color:#fff;font-size:19px;box-shadow:0 6px 16px rgba(101,88,245,.2)}.reward-preview b{font-size:12px;font-weight:900}.reward-preview .note{margin:3px 0 0}.text-link{background:transparent;color:var(--violet);font-size:10px;font-weight:900;padding:7px 0;white-space:nowrap}
+/* Practice session */
+#quiz{display:none}.session-top{display:flex;align-items:center;justify-content:space-between;gap:10px}.session-label{font-size:9px;letter-spacing:.13em;text-transform:uppercase;font-weight:900;color:#999fb3}.timer{font-variant-numeric:tabular-nums;font-weight:900;color:#d65e70;background:#fff0f2;padding:8px 11px;border-radius:999px;font-size:12px}.session-progress{height:7px;background:#eceef5;border-radius:8px;overflow:hidden;margin-top:17px}.session-progress span{height:100%;display:block;width:0;background:linear-gradient(90deg,var(--violet),var(--cyan));border-radius:8px;transition:width .3s}.question{font-size:clamp(30px,8.6vw,44px);font-weight:950;letter-spacing:-.055em;text-align:center;padding:37px 4px 30px;min-height:143px;display:flex;align-items:center;justify-content:center;overflow-wrap:anywhere;animation:questionIn .32s}.answer{width:100%;border:1.5px solid #dfe2ed;border-radius:15px;padding:16px;font-size:23px;text-align:center;outline:none;background:#fafbff;font-weight:850;color:var(--ink);transition:border .2s,box-shadow .2s,background .2s}.answer:focus{border-color:var(--violet);background:#fff;box-shadow:0 0 0 4px rgba(101,88,245,.1)}.feedback{min-height:29px;text-align:center;font-size:12px;padding-top:10px;font-weight:900}.feedback.good{color:var(--green);animation:pop .25s}.feedback.bad{color:var(--red);animation:pop .25s}.actions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:11px}.actions button{padding:14px;border-radius:13px;font-size:11px;font-weight:900;transition:transform .18s}.actions button:active{transform:scale(.97)}.submit{background:var(--night);color:white}.skip{background:#eff1f7;color:#555e75}.solution{display:none;background:#f2f0ff;border:1px solid #e4e0ff;border-radius:14px;padding:13px;margin-top:12px;font-size:11px;line-height:1.65;color:#4b4774}.session-foot{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:16px}.keyhint{font-size:9px;color:#989fb1;font-weight:700}
+/* Results */
+.result-hero{text-align:center;padding:24px 17px 20px;background:linear-gradient(145deg,#fff,#f4f3ff);border:1px solid #e5e2ff;border-radius:23px;box-shadow:var(--shadow)}.trophy{width:70px;height:70px;margin:0 auto 11px;border-radius:23px;display:grid;place-items:center;background:linear-gradient(145deg,#b9f3e9,#a59aff);box-shadow:0 11px 24px rgba(101,88,245,.12)}.trophy svg{width:40px;height:40px}.result-pct{font-size:44px;line-height:1;font-weight:950;letter-spacing:-.06em;color:var(--violet);margin:8px 0}.result-title{font-size:16px;font-weight:950;letter-spacing:-.03em}.result-reward{display:flex;align-items:center;justify-content:center;gap:9px;flex-wrap:wrap;margin-top:15px}.reward-chip{background:#f0efff;border:1px solid #e5e1ff;border-radius:999px;padding:8px 11px;color:#5247cd;font-size:10px;font-weight:900}.badge-unlock{display:none;margin-top:13px;padding:12px;border-radius:14px;background:#f5f9e8;border:1px solid #e7efcc;color:#657c21;font-size:10px;font-weight:850}.badge-unlock.visible{display:block;animation:pop .3s}
+/* Analytics */
+.metric-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}.metric-card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px}.metric-card b{display:block;font-size:21px;font-weight:950;letter-spacing:-.04em}.metric-card small{font-size:9px;color:var(--muted);font-weight:750}.skill-row{display:flex;align-items:center;gap:11px;padding:11px 0;border-bottom:1px solid var(--line)}.skill-row:last-child{border-bottom:0}.skill-name{flex:1;min-width:0;font-size:10px;font-weight:850}.skill-name small{display:block;font-size:9px;color:var(--muted);font-weight:650;margin-top:3px}.skill-bar{width:78px;height:6px;background:#eef0f6;border-radius:8px;overflow:hidden;flex:0 0 auto}.skill-bar span{display:block;height:100%;border-radius:8px;background:linear-gradient(90deg,var(--violet),var(--cyan))}.skill-score{font-size:10px;font-weight:900;color:var(--violet);width:32px;text-align:right}.activity-chart{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;align-items:end;height:94px;padding-top:10px}.activity-col{height:100%;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:6px}.activity-bar{width:100%;max-width:27px;min-height:4px;border-radius:7px 7px 3px 3px;background:linear-gradient(180deg,var(--cyan),var(--violet));opacity:.85}.activity-col small{font-size:8px;color:var(--muted);font-weight:750}.historyitem{display:flex;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid var(--line);font-size:10px}.historyitem:last-child{border-bottom:0}
+/* Rewards */
+.level-card{position:relative;overflow:hidden;background:linear-gradient(125deg,#171c35,#35306c);border-radius:22px;color:#fff;padding:20px;box-shadow:0 15px 36px rgba(25,29,58,.15)}.level-card:after{content:"";position:absolute;right:-42px;top:-60px;width:170px;height:170px;border:1px solid rgba(255,255,255,.12);border-radius:50%;box-shadow:0 0 0 18px rgba(255,255,255,.025),0 0 0 38px rgba(255,255,255,.02)}.level-number{font-size:38px;line-height:1;font-weight:950;letter-spacing:-.06em;color:var(--lime)}.level-name{font-size:11px;font-weight:900;color:#fff}.level-xp{height:8px;background:rgba(255,255,255,.14);border-radius:9px;overflow:hidden;margin-top:12px;position:relative;z-index:1}.level-xp span{display:block;height:100%;width:0;border-radius:9px;background:linear-gradient(90deg,var(--cyan),var(--lime));transition:width .5s}.coin-card{display:flex;align-items:center;justify-content:space-between;gap:10px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:13px 14px}.coin-card b{font-size:20px;font-weight:950;color:#b57b2e}.coin-card span{font-size:9px;color:var(--muted);font-weight:750}.badges-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}.badge-card{padding:14px;border-radius:17px;border:1px solid var(--line);background:#fff;min-height:108px;opacity:.56;filter:grayscale(.6)}.badge-card.unlocked{opacity:1;filter:none;background:linear-gradient(145deg,#fff,#f7f6ff);border-color:#dedaff;box-shadow:0 7px 20px rgba(101,88,245,.06)}.badge-icon{width:33px;height:33px;border-radius:11px;background:#eeecff;display:grid;place-items:center;font-size:16px;color:var(--violet);margin-bottom:9px}.badge-card b{display:block;font-size:10px;font-weight:900}.badge-card small{display:block;margin-top:4px;color:var(--muted);font-size:9px;line-height:1.4}
+/* Settings / nav */
+.settingsrow{padding:14px 0;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:11px;font-weight:750}.settingsrow:last-child{border-bottom:0}.settingsrow input[type=checkbox]{accent-color:var(--violet);width:18px;height:18px}.bottomnav{position:fixed;bottom:0;left:0;right:0;z-index:10;display:flex;justify-content:space-around;gap:4px;padding:10px max(15px,calc((100vw - 580px)/2)) calc(10px + env(safe-area-inset-bottom));background:rgba(255,255,255,.93);backdrop-filter:blur(18px);border-top:1px solid rgba(229,232,241,.92);box-shadow:0 -8px 24px rgba(21,27,54,.035)}.navbtn{flex:1;max-width:126px;display:grid;justify-items:center;gap:4px;background:transparent;color:#949bb0;font-size:9px;font-weight:850;padding:6px 4px;border-radius:13px;transition:color .2s,background .2s}.navbtn .navicon{font-size:19px;line-height:1.1}.navbtn.active{color:var(--violet);background:rgba(101,88,245,.075)}.navbtn:active{transform:scale(.95)}#runtimeIssue{display:none;margin-top:15px;padding:12px 14px;border-radius:13px;background:#fff0f2;border:1px solid #ffd8de;color:#8b3441;font-size:11px;line-height:1.5}#runtimeIssue.visible{display:block}.empty{padding:18px 10px;text-align:center;color:var(--muted);font-size:10px}
+@keyframes rise{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:translateY(0)}}@keyframes questionIn{from{opacity:0;transform:translateY(7px) scale(.98)}to{opacity:1;transform:translateY(0) scale(1)}}@keyframes pop{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:scale(1)}}@keyframes shine{0%,72%{left:-40%}100%{left:140%}}@keyframes orbDrift{from{transform:translate(-5px,-4px) scale(.94)}to{transform:translate(12px,12px) scale(1.08)}}@keyframes orbit{to{transform:rotate(360deg)}}@keyframes trophyLift{0%{transform:translateY(7px) scale(.88);opacity:.65}65%{transform:translateY(-5px) scale(1.06)}100%{transform:translateY(0) scale(1);opacity:1}}.trophy{animation:trophyLift .75s cubic-bezier(.2,.8,.2,1) both}.level:focus-visible,.chip:focus-visible,.navbtn:focus-visible{outline-offset:3px}@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+@media(min-width:680px){body{padding:20px 0}.app{border:1px solid #e7e9f2;border-radius:32px;overflow:hidden;background:var(--paper);box-shadow:0 25px 80px rgba(20,27,55,.11)}.top{border-radius:0}.bottomnav{left:50%;right:auto;transform:translateX(-50%);width:min(620px,100%);border-radius:0 0 31px 31px}}
+@media(max-width:380px){.app{padding-left:15px;padding-right:15px}.top{margin-left:-15px;margin-right:-15px;padding-left:18px;padding-right:18px}.brand{font-size:15px}.top-pill{padding:8px 9px}.level{padding:11px 8px}.level b{font-size:11px}.level small{font-size:8px}.stat{padding:11px 9px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}}
+
+/* NUMORA / SWISS EDITION — precise grid, typographic hierarchy, generous space */
+:root{
+ --ink:#171717;--muted:#6d6d68;--line:#deded8;--paper:#f7f7f4;--white:#fff;
+ --night:#171717;--violet:#D63B28;--violet2:#D63B28;--cyan:#315bd6;--lime:#e7e4dc;
+ --orange:#D63B28;--green:#247451;--red:#c63a2a;
+ --shadow:none;--shadow2:0 5px 18px rgba(20,20,18,.08);
+ --accent:#D63B28;--blue:#315bd6;--surface:#fff;--surface-2:#f0f0eb;
+ --radius-sm:5px;--radius-md:9px;--radius-lg:12px;
+}
+html{background:var(--paper);scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;font-feature-settings:"ss01" on,"cv11" on;letter-spacing:-.012em}
+button,input,select{font:inherit}
+button{cursor:pointer}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
+.app{max-width:720px;padding:0 28px 112px;background:var(--paper);overflow:hidden}
+.top{isolation:isolate;position:relative;margin:0 -28px;padding:23px 28px 27px;background:var(--white);color:var(--ink);border-radius:0;overflow:hidden;box-shadow:none;border-top:4px solid var(--accent);border-bottom:1px solid var(--line)}
+.top:before,.top:after{display:none}
+.topline{display:flex;align-items:center;justify-content:space-between;gap:18px;position:relative;z-index:2;padding-bottom:20px;border-bottom:1px solid var(--line)}
+.brandlock{display:flex;align-items:center;gap:11px;min-width:0}
+.brand-mark{width:34px;height:34px;display:grid;place-items:center;border-radius:2px;background:var(--accent);box-shadow:none;flex:0 0 auto}
+.brand-mark svg{width:25px;height:25px}
+.brand{font-size:17px;font-weight:900;letter-spacing:.105em;line-height:1;color:var(--ink)}
+.brand-period{color:var(--accent)}
+.brand-sub{font-size:8px;letter-spacing:.13em;color:#777770;font-weight:750;margin-top:4px;white-space:nowrap}
+.top-actions{display:flex;align-items:center;gap:7px}
+.top-pill{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:3px;border:1px solid var(--line);background:transparent;font-size:10px;font-weight:750;color:var(--ink);white-space:nowrap;transition:background .18s,border-color .18s,transform .18s}
+.top-pill:hover{background:var(--surface-2);border-color:#bcbcb5}
+.top-pill:active{transform:translateY(1px)}
+.top-pill-primary{background:var(--ink);border-color:var(--ink);color:#fff}
+.top-pill-primary:hover{background:#333;border-color:#333}
+.pill-key{font-size:8px;letter-spacing:.12em;font-weight:850;color:#92928b}
+.top-pill-primary .pill-key{color:#c9c9c2}
+.pill-arrow{font-size:12px;color:#fff}
+.hero-copy{position:relative;z-index:1;margin-top:28px;max-width:600px}
+.hero-kicker{display:inline-flex;align-items:center;gap:9px;color:#73736d;font-size:9px;letter-spacing:.13em;font-weight:800;text-transform:uppercase}
+.hero-kicker span{color:var(--accent)}.hero-kicker:before{content:none}
+h1{font-size:clamp(32px,7vw,48px);line-height:1.04;margin:15px 0 12px;letter-spacing:-.055em;font-weight:820;max-width:560px;color:var(--ink)}
+h1 .accent{color:var(--accent);background:none;-webkit-text-fill-color:currentColor}
+.sub{font-size:14px;line-height:1.65;color:#62625d;max-width:470px}
+.hero-foot{display:flex;align-items:center;gap:10px;margin-top:20px;color:#72726c;font-size:8px;letter-spacing:.11em;font-weight:800}
+.hero-index{display:grid;place-items:center;width:21px;height:21px;background:var(--accent);color:white;font-size:9px;letter-spacing:0;font-weight:850}
+.hero-foot .line{display:none}
+.hero-xp{margin-top:20px;display:grid;grid-template-columns:1fr auto;align-items:center;gap:8px;max-width:460px;padding-top:14px;border-top:1px solid var(--line)}
+.hero-xp small{font-size:8px;letter-spacing:.1em;color:#777770;font-weight:800}
+.hero-xp b{font-size:10px;color:var(--ink);font-weight:800;font-variant-numeric:tabular-nums}
+.hero-xp-track{height:3px;border-radius:0;background:#e8e8e2;overflow:hidden;grid-column:1/3}
+.hero-xp-track span{height:100%;display:block;width:0;background:var(--accent);border-radius:0;transition:width .5s cubic-bezier(.2,.7,.2,1)}
+main{position:relative}
+.view{display:none}.view.active{display:block}
+.section{margin-top:35px;animation:swissIn .32s ease-out both}
+.section-head{margin-bottom:17px}
+.eyebrow{font-size:8px;font-weight:850;letter-spacing:.14em;text-transform:uppercase;color:#82827b;margin-bottom:9px;display:flex;align-items:center;gap:8px}
+.eyebrow .num{color:var(--accent);font-variant-numeric:tabular-nums}
+.section-title{margin:0;font-size:23px;font-weight:780;letter-spacing:-.045em;line-height:1.16;color:var(--ink)}
+.section-sub{margin:7px 0 0;font-size:12px;color:#6e6e68;line-height:1.55;max-width:520px}
+.levels{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.level{position:relative;min-height:112px;overflow:hidden;text-align:left;background:#fff;border:1px solid var(--line);border-radius:var(--radius-md);padding:15px 14px;color:var(--ink);box-shadow:none;transition:transform .18s,border-color .18s,background .18s}
+.level:after{content:none}
+.level:hover{transform:translateY(-2px);box-shadow:none;border-color:#aaa9a2}
+.level.active{border:1.5px solid var(--accent);background:#fff;box-shadow:inset 0 0 0 1px var(--accent)}
+.level-icon{width:auto;height:auto;border-radius:0;display:inline-flex;align-items:center;justify-content:flex-start;font-size:9px;letter-spacing:.1em;font-weight:900;margin-bottom:15px;background:transparent;color:var(--accent)}
+.level:nth-child(2) .level-icon,.level:nth-child(3) .level-icon{background:transparent;color:var(--accent)}
+.level b{display:block;font-size:13px;font-weight:800;letter-spacing:-.02em}
+.level small{display:block;color:#797972;font-size:10px;line-height:1.4;margin-top:5px}
+.level.active b{color:var(--ink)}
+.topics{display:flex;gap:7px;overflow:auto;padding:2px 1px 5px;scrollbar-width:none}
+.topics::-webkit-scrollbar{display:none}
+.chip{white-space:nowrap;border:1px solid #d5d5ce;background:transparent;color:#52524d;border-radius:3px;padding:9px 12px;font-size:10px;font-weight:700;box-shadow:none;transition:background .16s,color .16s,border-color .16s,transform .16s}
+.chip:hover{border-color:var(--ink)}
+.chip.active{background:var(--ink);border-color:var(--ink);color:#fff;box-shadow:none}
+.chip:active{transform:scale(.97)}
+.panel{background:var(--white);border:1px solid var(--line);border-radius:var(--radius-lg);padding:19px;box-shadow:none}
+.focus-card{position:relative;isolation:isolate;overflow:hidden;background:#fff;border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:var(--radius-md)}
+.focus-card:after{content:none}
+.row{display:flex;align-items:center;justify-content:space-between;gap:10px;position:relative;z-index:1}
+.muted{color:var(--muted)}.tiny{font-size:10px}.note{font-size:11px;line-height:1.6;color:#6c6c66}
+.focus-title{font-size:15px;font-weight:800;letter-spacing:-.025em;color:var(--ink)}
+.pill{background:#f1f1ec;border:1px solid #e1e1da;border-radius:3px;padding:6px 8px;font-size:8px;letter-spacing:.08em;font-weight:850;color:#55554f;white-space:nowrap}
+.duration-select{border:1px solid #cdcdc6;border-radius:3px;padding:9px 10px;background:#fff;color:var(--ink);font-size:11px;font-weight:700;outline:none}
+.startbtn{position:relative;isolation:isolate;overflow:hidden;width:100%;border-radius:3px;padding:15px 17px;background:var(--accent);color:#fff;font-size:12px;letter-spacing:.01em;font-weight:800;margin-top:17px;box-shadow:none;transition:background .16s,transform .16s}
+.startbtn:before{content:none}
+.startbtn:hover{background:#c93624}
+.startbtn:active{transform:translateY(1px);box-shadow:none}
+.ghost{background:transparent;color:var(--ink);border:1px solid #d4d4cd;padding:9px 12px;border-radius:3px;font-size:10px;font-weight:750;transition:background .16s,border-color .16s,transform .16s}
+.ghost:hover{background:#f0f0eb;border-color:#a9a9a1}
+.ghost:active{transform:translateY(1px)}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:0;background:#fff;border:1px solid var(--line);border-radius:var(--radius-md);overflow:hidden}
+.stat{background:#fff;border:0;border-right:1px solid var(--line);border-radius:0;padding:16px 14px;min-width:0;box-shadow:none}
+.stat:last-child{border-right:0}
+.stat strong{display:block;font-size:25px;letter-spacing:-.055em;font-weight:780;color:var(--ink);font-variant-numeric:tabular-nums}
+.stat span{font-size:9px;color:#74746e;font-weight:650}
+.stat:nth-child(1) strong,.stat:nth-child(2) strong,.stat:nth-child(3) strong{color:var(--ink)}
+.quest-card{padding:17px 18px;background:#fff;border:1px solid var(--line);border-radius:var(--radius-md);box-shadow:none}
+.quest-icon{width:28px;height:28px;border-radius:2px;background:#fbe9e5;color:var(--accent);display:grid;place-items:center;font-size:13px}
+.quest-track{height:4px;border-radius:0;background:#ecece6;overflow:hidden;margin-top:11px}
+.quest-track span{display:block;height:100%;width:0;background:var(--accent);border-radius:0;transition:width .45s}
+.quest-line{font-size:10px;color:#777770;font-weight:700}
+.quest-reward{font-size:9px;color:var(--accent);font-weight:850;white-space:nowrap}
+.coach-panel{background:#fff;border:1px solid var(--line);border-left:3px solid var(--blue);color:var(--ink);box-shadow:none;position:relative;overflow:hidden}
+.coach-panel:after{content:none}
+.coach-panel .note{color:#6b6b65}
+.coach-panel .eyebrow{color:#777770}
+.coach-panel b{color:var(--ink)}
+.coach-panel .pill{background:#edf1fb;border-color:#d9e1f6;color:#3152a8}
+.coach-panel .coach-icon{width:27px;height:27px;background:#fbe9e5;border-radius:2px;color:var(--accent);box-shadow:none}.coach-panel #weakAreas{color:#6b6b65}
+.coach-panel .row>span:last-child{color:#444}
+.reward-preview{display:flex;align-items:center;justify-content:space-between;gap:14px;background:#fff;border:1px solid var(--line);border-radius:var(--radius-md);padding:15px 17px}
+.reward-orb{width:32px;height:32px;flex:0 0 auto;border-radius:2px;display:grid;place-items:center;background:#fbe9e5;color:var(--accent);font-size:15px;box-shadow:none}
+.reward-preview b{font-size:12px;font-weight:800}
+.reward-preview .note{margin:3px 0 0}
+.text-link{background:transparent;color:var(--accent);font-size:10px;font-weight:800;padding:7px 0;white-space:nowrap}
+#quiz{display:none}
+.session-top{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.session-label{font-size:8px;letter-spacing:.14em;text-transform:uppercase;font-weight:850;color:#777770}
+.timer{font-variant-numeric:tabular-nums;font-weight:800;color:var(--accent);background:#fbe9e5;padding:8px 10px;border-radius:3px;font-size:12px}
+.session-progress{height:4px;background:#e8e8e2;border-radius:0;overflow:hidden;margin-top:17px}
+.session-progress span{height:100%;display:block;width:0;background:var(--accent);border-radius:0;transition:width .3s}
+.question{font-size:clamp(34px,9vw,52px);font-weight:780;letter-spacing:-.06em;text-align:center;padding:42px 4px 34px;min-height:155px;display:flex;align-items:center;justify-content:center;overflow-wrap:anywhere;animation:questionEnter .22s ease-out}
+.answer{width:100%;border:1px solid #c9c9c2;border-radius:3px;padding:17px;font-size:24px;text-align:center;outline:none;background:#fff;font-weight:750;color:var(--ink);font-variant-numeric:tabular-nums;transition:border .18s,box-shadow .18s,background .18s}
+.answer:focus{border-color:var(--blue);background:#fff;box-shadow:0 0 0 3px rgba(49,91,214,.1)}
+.feedback{min-height:31px;text-align:center;font-size:11px;padding-top:10px;font-weight:800}
+.feedback.good{color:var(--green);animation:feedbackIn .2s}
+.feedback.bad{color:var(--accent);animation:feedbackIn .2s}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:11px}
+.actions button{padding:14px;border-radius:3px;font-size:11px;font-weight:800;transition:transform .16s,background .16s,border-color .16s}
+.actions button:active{transform:translateY(1px)}
+.submit{background:var(--ink);color:white}
+.submit:hover{background:#343434}
+.skip{background:transparent;color:#555;border:1px solid #d4d4cd}
+.skip:hover{background:#f1f1ec}
+.solution{display:none;background:#f1f4fc;border:1px solid #dce4fa;border-radius:4px;padding:13px;margin-top:12px;font-size:11px;line-height:1.65;color:#2e416e}
+.session-foot{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:16px}
+.keyhint{font-size:9px;color:#85857e;font-weight:650}
+.result-hero{text-align:center;padding:28px 20px 22px;background:#fff;border:1px solid var(--line);border-radius:var(--radius-lg);box-shadow:none}
+.trophy{width:52px;height:52px;margin:0 auto 13px;border-radius:2px;display:grid;place-items:center;background:#fbe9e5;box-shadow:none}
+.trophy svg{width:33px;height:33px}
+.result-pct{font-size:52px;line-height:1;font-weight:800;letter-spacing:-.065em;color:var(--accent);margin:9px 0}
+.result-title{font-size:18px;font-weight:800;letter-spacing:-.035em}
+.result-reward{display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;margin-top:16px}
+.reward-chip{background:#f1f1ec;border:1px solid #dfdfd8;border-radius:3px;padding:8px 11px;color:#373732;font-size:10px;font-weight:800}
+.badge-unlock{display:none;margin-top:13px;padding:12px;border-radius:4px;background:#edf4ef;border:1px solid #d6e8dc;color:#276445;font-size:10px;font-weight:800}
+.badge-unlock.visible{display:block;animation:feedbackIn .22s}
+.metric-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0;background:#fff;border:1px solid var(--line);border-radius:var(--radius-md);overflow:hidden}
+.metric-card{background:#fff;border:0;border-right:1px solid var(--line);border-bottom:1px solid var(--line);border-radius:0;padding:17px}
+.metric-card:nth-child(2n){border-right:0}
+.metric-card:nth-last-child(-n+2){border-bottom:0}
+.metric-card b{display:block;font-size:27px;font-weight:780;letter-spacing:-.05em;font-variant-numeric:tabular-nums}
+.metric-card small{font-size:9px;color:#777770;font-weight:650}
+.memory-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:0;background:#fff;border:1px solid var(--line);border-radius:var(--radius-md);overflow:hidden}
+.memory-cell{background:#fff;border:0;border-right:1px solid var(--line);border-radius:0;padding:15px 13px;box-shadow:none}
+.memory-cell:last-child{border-right:0}
+.memory-cell b{display:block;font-size:23px;letter-spacing:-.045em;color:var(--ink);font-weight:780;font-variant-numeric:tabular-nums}
+.memory-cell small{display:block;margin-top:4px;color:#777770;font-size:8px;font-weight:750;line-height:1.3;text-transform:uppercase;letter-spacing:.07em}
+.skill-row{display:flex;align-items:center;gap:11px;padding:13px 0;border-bottom:1px solid var(--line)}
+.skill-row:last-child{border-bottom:0}
+.skill-name{flex:1;min-width:0;font-size:11px;font-weight:750}
+.skill-name small{display:block;font-size:9px;color:#777770;font-weight:600;margin-top:4px}
+.skill-bar{width:78px;height:4px;background:#e9e9e3;border-radius:0;overflow:hidden;flex:0 0 auto}
+.skill-bar span{display:block;height:100%;border-radius:0;background:var(--blue)}
+.skill-score{font-size:10px;font-weight:800;color:var(--ink);width:32px;text-align:right;font-variant-numeric:tabular-nums}
+.activity-chart{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;align-items:end;height:104px;padding-top:10px}
+.activity-col{height:100%;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:6px}
+.activity-bar{width:100%;max-width:27px;min-height:4px;border-radius:0;background:var(--accent);opacity:.86}
+.activity-col small{font-size:8px;color:#777770;font-weight:700}
+.historyitem{display:flex;justify-content:space-between;gap:12px;padding:13px 0;border-bottom:1px solid var(--line);font-size:10px}
+.historyitem:last-child{border-bottom:0}
+.level-card{position:relative;overflow:hidden;background:#fff;border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:var(--radius-md);color:var(--ink);padding:20px;box-shadow:none}
+.level-card:after{content:none}
+.level-number{font-size:42px;line-height:1;font-weight:800;letter-spacing:-.06em;color:var(--accent)}
+.level-name{font-size:10px;font-weight:850;letter-spacing:.1em;color:#55554e}
+.level-xp{height:4px;background:#e8e8e2;border-radius:0;overflow:hidden;margin-top:12px;position:relative;z-index:1}
+.level-xp span{display:block;height:100%;width:0;border-radius:0;background:var(--accent);transition:width .5s}
+.coin-card{display:flex;align-items:center;justify-content:space-between;gap:10px;background:#fff;border:1px solid var(--line);border-radius:var(--radius-md);padding:14px}
+.coin-card b{font-size:22px;font-weight:800;color:var(--ink);font-variant-numeric:tabular-nums}
+.coin-card span{font-size:8px;color:#777770;font-weight:800;letter-spacing:.1em}
+.badges-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}
+.badge-card{padding:14px;border-radius:var(--radius-md);border:1px solid var(--line);background:#fff;min-height:108px;opacity:.55;filter:grayscale(1);transition:opacity .2s,border-color .2s,transform .2s}
+.badge-card.unlocked{opacity:1;filter:none;background:#fff;border-color:#c7c7bf;box-shadow:inset 3px 0 0 var(--accent)}
+.badge-icon{width:27px;height:27px;border-radius:2px;background:#fbe9e5;display:grid;place-items:center;font-size:13px;color:var(--accent);margin-bottom:9px}
+.badge-card b{display:block;font-size:10px;font-weight:800}
+.badge-card small{display:block;margin-top:4px;color:#777770;font-size:9px;line-height:1.4}
+.settingsrow{padding:15px 0;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:11px;font-weight:700}
+.settingsrow:last-child{border-bottom:0}
+.settingsrow input[type=checkbox]{accent-color:var(--accent);width:17px;height:17px}
+.bottomnav{position:fixed;bottom:0;left:0;right:0;z-index:10;display:flex;justify-content:space-around;gap:4px;padding:9px max(18px,calc((100vw - 680px)/2)) calc(9px + env(safe-area-inset-bottom));background:rgba(255,255,255,.97);backdrop-filter:blur(12px);border-top:1px solid var(--line);box-shadow:none}
+.navbtn{position:relative;flex:1;max-width:150px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;background:transparent;color:#777770;font-size:9px;font-weight:750;padding:8px 4px;border-radius:3px;transition:color .18s,background .18s}
+.navbtn .navicon{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.65;stroke-linecap:square;stroke-linejoin:miter}
+.navbtn.active{color:var(--accent);background:transparent}
+.navbtn.active:after{content:"";position:absolute;top:-9px;left:calc(50% - 9px);width:18px;height:2px;background:var(--accent)}
+.navbtn:active{transform:translateY(1px)}
+#runtimeIssue{display:none;margin-top:15px;padding:12px 14px;border-radius:4px;background:#fff0ed;border:1px solid #f0cbc3;color:#8b3427;font-size:11px;line-height:1.5}
+#runtimeIssue.visible{display:block}
+.empty{padding:20px 10px;text-align:center;color:#777770;font-size:10px}
+@keyframes swissIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+@keyframes questionEnter{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+@keyframes feedbackIn{from{opacity:0;transform:translateY(3px)}to{opacity:1;transform:translateY(0)}}
+@media(min-width:760px){body{padding:20px 0}.app{border:1px solid #deded8;border-radius:3px;overflow:hidden;background:var(--paper);box-shadow:0 12px 45px rgba(20,20,18,.07)}.top{border-radius:0}.bottomnav{left:50%;right:auto;transform:translateX(-50%);width:min(720px,100%);border-radius:0 0 3px 3px}}
+@media(max-width:480px){.app{padding-left:19px;padding-right:19px}.top{margin-left:-19px;margin-right:-19px;padding:18px 19px 23px}.topline{gap:9px;padding-bottom:16px}.brand-mark{width:31px;height:31px}.brand{font-size:15px}.brand-sub{font-size:7px}.top-pill{padding:7px 8px;gap:6px;font-size:9px}.pill-key{font-size:7px}.hero-copy{margin-top:24px}h1{font-size:clamp(31px,8.7vw,42px)}.sub{font-size:12px}.section{margin-top:31px}.section-title{font-size:21px}.levels{gap:7px}.level{padding:13px 10px;min-height:106px}.level b{font-size:11px}.level small{font-size:9px}.level-icon{margin-bottom:13px}.panel{padding:16px}.memory-cell{padding:13px 10px}.memory-cell b{font-size:20px}.memory-cell small{font-size:7px}.stat{padding:14px 10px}.stat strong{font-size:22px}.stat span{font-size:8px}.reward-preview{align-items:flex-start}.text-link{font-size:9px}.bottomnav{padding-left:8px;padding-right:8px}.navbtn{font-size:8px}.actions{gap:7px}}
+@media(max-width:350px){.top-actions{gap:4px}.top-pill{padding:6px 6px}.brand-sub{letter-spacing:.08em}.level{padding:11px 8px}.level small{font-size:8px}.section-title{font-size:20px}.actions button{font-size:10px;padding:13px 9px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+
+</style>
+</head>
+<body>
+<div class="app" id="appRoot">
+<header class="top" id="appHeader">
+ <div class="topline">
+  <div class="brandlock">
+   <div class="brand-mark" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none"><path d="M7 24V8L25 24V8" stroke="white" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter"/><path d="M7 8H12" stroke="white" stroke-width="3"/><path d="M20 24H25" stroke="white" stroke-width="3"/></svg></div>
+   <div><div class="brand">NUMORA<span class="brand-period">.</span></div><div class="brand-sub">MENTAL PERFORMANCE SYSTEM</div></div>
+  </div>
+  <div class="top-actions">
+   <button class="top-pill" type="button" data-shortcut="rewards" aria-label="Open rewards"><span class="pill-key">STREAK</span><span id="streak">0 days</span></button>
+   <button class="top-pill top-pill-primary" type="button" data-shortcut="rewards" aria-label="Open rewards and experience points"><span id="xpTop">0 XP</span><span class="pill-arrow" aria-hidden="true">↗</span></button>
+  </div>
+ </div>
+ <div class="hero-copy" id="heroCopy">
+  <div class="hero-kicker">QUANTITATIVE APTITUDE <span>/</span> RBI GRADE B</div>
+  <h1>Accuracy is a habit.<br><span class="accent">Speed is trained.</span></h1>
+  <div class="sub">A focused mental-arithmetic system that adapts to your performance, one deliberate session at a time.</div>
+  <div class="hero-foot"><span class="hero-index">01</span><span>TRAIN WITH INTENTION · IMPROVE WITH EVIDENCE</span></div>
+  <div class="hero-xp"><small id="levelTop">LEVEL 01 · FOUNDATION</small><b id="xpProgressLabel">0 / 250 XP</b><div class="hero-xp-track"><span id="xpTopBar"></span></div></div>
+ </div>
+</header>
+<main>
+<div id="runtimeIssue" role="status" aria-live="polite"></div>
+<section id="home" class="view active">
+ <div class="section">
+  <div class="section-head"><div class="eyebrow"><span class="num">01</span> TRAINING LEVEL</div><h2 class="section-title">Set your pace.</h2><p class="section-sub">Begin at Intermediate. Progress as your accuracy and response time become consistent.</p></div>
+  <div class="levels">
+   <button class="level active" data-level="Intermediate"><span class="level-icon">01</span><b>Intermediate</b><small>Build accuracy and rhythm</small></button>
+   <button class="level" data-level="Advanced"><span class="level-icon">02</span><b>Advanced</b><small>Increase complexity</small></button>
+   <button class="level" data-level="Pro"><span class="level-icon">03</span><b>Pro</b><small>Train under pressure</small></button>
+  </div>
+ </div>
+ <div class="section">
+  <div class="section-head"><div class="eyebrow"><span class="num">02</span> SKILL FILTER</div><h2 class="section-title">Choose a skill.</h2></div>
+  <div class="topics" id="topics"><button class="chip active" data-topic="Mixed">All skills</button><button class="chip" data-topic="Multiplication">Multiplication</button><button class="chip" data-topic="Division">Division</button><button class="chip" data-topic="Addition & subtraction">Add / subtract</button><button class="chip" data-topic="Percentages">Percentages</button><button class="chip" data-topic="Simplification">Simplification</button><button class="chip" data-topic="Recall">Recall bank</button></div>
+ </div>
+ <div class="section panel focus-card">
+  <div class="row"><div><div class="eyebrow" style="margin:0 0 6px">03 / SESSION SETUP</div><b class="focus-title" id="levelSummary">Intermediate · Mixed calculations</b></div><span class="pill">ADAPTIVE</span></div>
+  <p class="note" id="levelDescription">Build accuracy with useful shortcuts and controlled multi-step arithmetic.</p>
+  <div class="row"><span class="tiny muted">Session length</span><select id="duration" class="duration-select" aria-label="Session length"><option value="10">10 questions · Quick</option><option value="15">15 questions · Focus</option><option value="20">20 questions · Deep work</option></select></div>
+  <button class="startbtn" id="start" type="button">Begin session <span aria-hidden="true">↗</span></button>
+ </div>
+ <div class="section quest-card">
+  <div class="row"><div style="display:flex;align-items:center;gap:10px"><span class="quest-icon">✦</span><div><div class="eyebrow" style="margin:0 0 4px;color:#ad8a61">DAILY PRACTICE TARGET</div><b style="font-size:12px" id="questTitle">Warm up your brain</b></div></div><span class="quest-reward" id="questReward">+30 XP</span></div>
+  <div class="row" style="margin-top:12px"><span class="quest-line" id="questProgress">0 / 10 questions answered</span><span class="tiny muted" id="questPercent">0%</span></div><div class="quest-track"><span id="questBar"></span></div>
+ </div>
+ <div class="section"><div class="section-head"><div class="eyebrow"><span class="num">04</span> PERFORMANCE SNAPSHOT</div></div><div class="stats"><div class="stat"><strong id="totalDone">0</strong><span>Questions answered</span></div><div class="stat"><strong id="accuracy">—</strong><span>Accuracy</span></div><div class="stat"><strong id="bestStreak">0</strong><span>Best round score</span></div></div></div>
+ <div class="section panel coach-panel"><div class="row"><div class="coach-heading"><span class="coach-icon">✦</span> Adaptive training insight</div><span class="pill" id="adaptiveStatus">Learning your patterns</span></div><p class="note" id="adaptiveSummary">Your coach is building a skill-by-skill profile from every answer, skip and response time.</p><div id="weakAreas" class="note"></div><div class="row" style="margin-top:13px"><span class="tiny" style="color:#aeb7d0">Current training tier</span><b id="adaptiveTier">Intermediate</b></div></div>
+ <div class="section reward-preview"><div style="display:flex;align-items:center;gap:11px;min-width:0"><div class="reward-orb">✧</div><div><b>Consistency compounds.</b><p class="note">Every session builds a measurable record of progress.</p></div></div><button class="text-link" type="button" id="toRewards">Explore rewards ↗</button></div>
+ <p class="note section">NUMORA remembers your practice on this device: skill mastery, response speed, recurring mistakes, review schedules, questions seen and reward progress. Export a backup before changing or uninstalling your app.</p>
+</section>
+<section id="quiz" class="view">
+ <div class="section panel">
+  <div class="session-top"><div><div class="session-label">FOCUSED TRAINING SESSION</div><span class="pill" id="quizMeta">Intermediate · Mixed</span></div><div class="timer" id="clock">00:00</div></div>
+  <div class="row tiny muted" style="margin-top:16px"><span id="qCount">Question 1 of 10</span><span id="score">0 correct</span></div><div class="session-progress"><span id="sessionProgress"></span></div>
+  <div class="question" id="question">—</div>
+  <input class="answer" id="answer" inputmode="decimal" autocomplete="off" placeholder="Type your answer" aria-label="Your answer">
+  <div class="feedback" id="feedback" aria-live="polite"></div>
+  <div class="actions"><button class="submit" id="check" type="button">Check answer ↗</button><button class="skip" id="skip" type="button">Skip question</button></div>
+  <div class="solution" id="solution"></div>
+  <div class="session-foot"><button class="ghost" id="endRound" type="button">End session</button><span class="keyhint">Press Enter ↵ to submit</span></div>
+ </div>
+</section>
+<section id="results" class="view">
+ <div class="section result-hero">
+  <div class="trophy"><svg viewBox="0 0 48 48" fill="none"><path d="M13 8h22v9c0 9-4.9 14-11 14s-11-5-11-14V8Z" stroke="#29234f" stroke-width="2.5"/><path d="M13 12H7v6c0 5 3.3 8 8 8M35 12h6v6c0 5-3.3 8-8 8M24 31v7m-8 2h16" stroke="#29234f" stroke-width="2.5" stroke-linecap="round"/><path d="m24 12 2 4 4 .6-3 3 .7 4.4-3.7-2-3.7 2 .7-4.4-3-3 4-.6 2-4Z" fill="#c8ed6c"/></svg></div>
+  <div class="eyebrow" style="justify-content:center">SPRINT COMPLETE</div><div class="result-pct" id="resultPct">0%</div><div class="result-title" id="resultTitle">A solid training session.</div><p class="note" id="resultText"></p>
+  <div class="stats" style="margin-top:18px"><div class="stat"><strong id="rCorrect">0</strong><span>Correct</span></div><div class="stat"><strong id="rWrong">0</strong><span>Missed / skipped</span></div><div class="stat"><strong id="rTime">0s</strong><span>Avg. response</span></div></div>
+  <div class="result-reward"><span class="reward-chip" id="earnedXP">+0 XP</span><span class="reward-chip" id="earnedCoins">+0 coins</span></div><div class="badge-unlock" id="badgeUnlock"></div>
+  <button class="startbtn" id="again" type="button">Run another sprint →</button><button class="ghost" style="margin-top:10px;width:100%" id="toHome" type="button">Back to dashboard</button>
+ </div>
+ <div class="section panel"><b style="font-size:12px">Answer review</b><div class="note" style="margin-top:4px">Use the quick method shown after each response to learn a faster route.</div><div id="review"></div></div>
+</section>
+<section id="progressView" class="view">
+ <div class="section"><div class="section-head"><div class="eyebrow"><span class="num">01</span> YOUR ANALYTICS</div><h2 class="section-title">Progress, measured.</h2><p class="section-sub">A clear view of how your speed, accuracy and consistency are changing.</p></div><div class="metric-grid"><div class="metric-card"><b id="pAnswered">0</b><small>Total questions</small></div><div class="metric-card"><b id="pAccuracy">—</b><small>Overall accuracy</small></div><div class="metric-card"><b id="pRounds">0</b><small>Completed sprints</small></div><div class="metric-card"><b id="pStreak">0 days</b><small>Current streak</small></div></div></div>
+ <div class="section memory-strip"><div class="memory-cell"><b id="memorySkills">0</b><small>skills mapped</small></div><div class="memory-cell"><b id="memoryDue">0</b><small>reviews due</small></div><div class="memory-cell"><b id="memorySaved">0</b><small>answers remembered</small></div></div>
+ <div class="section panel"><div class="row"><b style="font-size:12px">Your last 7 days</b><span class="pill">DAILY ACTIVITY</span></div><div id="activityChart" class="activity-chart"></div></div>
+ <div class="section panel"><div class="row"><b style="font-size:12px">Skill mastery map</b><span class="pill">ADAPTIVE MEMORY</span></div><p class="note">Mastery estimates combine accuracy, recent performance, speed and review history.</p><div id="bankList"></div></div>
+ <div class="section panel"><b style="font-size:12px">Recent sprints</b><div id="history"></div></div>
+</section>
+<section id="rewardsView" class="view">
+ <div class="section"><div class="section-head"><div class="eyebrow"><span class="num">01</span> YOUR REWARD JOURNEY</div><h2 class="section-title">Recognition follows consistency.</h2><p class="section-sub">Earn experience, collect coins and unlock badges through consistent practice.</p></div>
+  <div class="level-card"><div class="row"><div><div class="level-name" id="rankName">NUMORA NOVICE</div><div class="level-number" id="rankLevel">01</div></div><div style="font-size:28px;color:var(--lime)">✧</div></div><div class="row" style="margin-top:10px"><small style="font-size:9px;color:#bdc4da" id="rankXP">0 / 250 XP</small><small style="font-size:9px;color:#bdc4da" id="rankNext">250 XP to next level</small></div><div class="level-xp"><span id="rankBar"></span></div></div>
+ </div>
+ <div class="section"><div class="row"><div class="coin-card" style="flex:1"><div><b id="coinBalance">0</b><br><span>NUMORA COINS</span></div><div style="font-size:23px">◉</div></div><div class="coin-card" style="flex:1"><div><b id="badgeCount">0 / 6</b><br><span>BADGES UNLOCKED</span></div><div style="font-size:23px">✹</div></div></div></div>
+ <div class="section panel"><div class="row"><b style="font-size:12px">Achievement collection</b><span class="pill">6 BADGES</span></div><p class="note">Keep practising to unlock every milestone.</p><div class="badges-grid" id="badgesGrid"></div></div>
+ <div class="section panel"><div class="row"><b style="font-size:12px">How rewards work</b><span class="pill">FAIR PLAY</span></div><p class="note">You earn XP for correct answers, completion and high accuracy. Coins reward correct answers and strong sprints. Badges celebrate milestones. Rewards never affect your exam-level score or adaptive assessment.</p></div>
+</section>
+<section id="settings" class="view">
+ <div class="section"><div class="section-head"><div class="eyebrow"><span class="num">01</span> APP PREFERENCES</div><h2 class="section-title">Preferences and data.</h2><p class="section-sub">Controls for practice, notifications and your learning data.</p></div><div class="panel">
+  <div class="settingsrow"><span>Show quick-method explanations</span><input type="checkbox" id="hints" checked></div>
+  <div class="settingsrow"><span>Three-hour practice reminders</span><label style="display:flex;align-items:center;gap:8px"><input type="checkbox" id="reminders"><span class="tiny muted">Android only</span></label></div><p class="note" id="reminderStatus">Reminders are available in the installed Android app.</p>
+  <div class="settingsrow"><span>Export learning profile</span><button class="ghost" id="exportProfile" type="button">Export backup</button></div>
+  <div class="settingsrow"><span>Import learning profile</span><button class="ghost" id="importProfile" type="button">Restore backup</button><input type="file" id="importFile" accept="application/json,.json" hidden></div>
+  <div class="settingsrow"><span>Clear no-repeat question memory</span><button class="ghost" id="clearHistory" type="button">Clear</button></div>
+  <div class="settingsrow"><span>Reset all learning and rewards</span><button class="ghost" id="resetStats" type="button">Reset app</button></div>
+  <p class="note">Your learning profile is stored locally on this device. It includes per-skill performance, recent answers, review intervals, seen questions, streaks, XP, coins and unlocked badges. Export a backup before uninstalling or changing phones.</p>
+ </div></div>
+ <div class="section panel"><b style="font-size:12px">About NUMORA memory</b><p class="note">The adaptive coach uses long-term accuracy, weighted recent results, response time, error debt and spaced-review dates to choose future questions. Your profile stays on-device and works offline.</p></div>
+</section>
+</main>
+</div>
+<nav class="bottomnav" id="bottomNav" aria-label="Main navigation">
+ <button class="navbtn active" data-view="home" type="button"><svg class="navicon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19V5h16v14H4Z"/><path d="M8 9h8M8 13h5"/></svg><span>Practice</span></button>
+ <button class="navbtn" data-view="progressView" type="button"><svg class="navicon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19V5M4 19h16"/><path d="m7 15 4-4 3 2 5-7"/></svg><span>Progress</span></button>
+ <button class="navbtn" data-view="rewardsView" type="button"><svg class="navicon" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 2.2 5.6L20 11l-5.8 2.3L12 19l-2.2-5.7L4 11l5.8-2.4L12 3Z"/><path d="m19 16 .9 2.1L22 19l-2.1.9L19 22l-.9-2.1L16 19l2.1-.9L19 16Z"/></svg><span>Rewards</span></button>
+ <button class="navbtn" data-view="settings" type="button"><svg class="navicon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v2M12 19v2M3 12h2m14 0h2M5.6 5.6 7 7m10 10 1.4 1.4m0-12.8L17 7M7 17l-1.4 1.4"/><circle cx="12" cy="12" r="5"/></svg><span>Settings</span></button>
+</nav>
+<script>
+
+
+(()=>{
+'use strict';
+const $=id=>document.getElementById(id);
+const STORE={learning:'rbi_learning_v2',stats:'rbi_stats_v2',seen:'rbi_seen_v2',rewards:'numora_rewards_v1',daily:'numora_daily_v1',activity:'numora_activity_v1',attempts:'numora_attempts_v1'};
+const load=(key,fallback)=>{try{return JSON.parse(localStorage.getItem(key))??fallback}catch{return fallback}};
+const save=(key,value)=>{try{localStorage.setItem(key,JSON.stringify(value));}catch(error){console.warn('NUMORA local save unavailable',error);}};
+const clamp=(v,min,max)=>Math.max(min,Math.min(max,v));
+const rand=(min,max)=>Math.floor(Math.random()*(max-min+1))+min;
+const pick=arr=>arr[rand(0,arr.length-1)];
+const shuffle=arr=>{const a=[...arr];for(let i=a.length-1;i>0;i--){const j=rand(0,i);[a[i],a[j]]=[a[j],a[i]];}return a;};
+const fmt=n=>Number.isInteger(n)?String(n):String(Number(n.toFixed(4)));
+const pctText=n=>`${Number(n.toFixed(2))}%`;
+const levelNames=['Intermediate','Advanced','Pro'];
+const levelDescriptions=[
+ 'Build accuracy with manageable factors, familiar percentages and controlled multi-step arithmetic.',
+ 'Increase number size, use less obvious factors and combine calculation shortcuts.',
+ 'Work with larger values, chained operations and exam-pressure combinations.'
+];
+const fractionPairs=[
+ [1,6],[1,7],[1,8],[1,9],[1,11],[1,12],[1,13],[1,14],[1,15],[1,16],[1,17],[1,18],[1,19],[1,24],[1,60],
+ [2,15],[4,15],[7,15],[8,15],[5,16],[3,7],[3,8],[5,8],[7,8],[5,12],[7,12],[11,12],[3,16],[7,16],
+ [2,3],[1,3],[2,7],[1,14],[6,25],[2,5],[4,7],[3,4],[5,9]
+].filter((v,i,a)=>a.findIndex(x=>x[0]===v[0]&&x[1]===v[1])===i);
+const fractionRows=fractionPairs.map(([n,d])=>({n,d,percent:n/d*100,label:`${n}/${d}`}));
+const SKILLS=[
+ {id:'mul_basic',topic:'Multiplication',name:'Two-number multiplication',target:12},
+ {id:'mul_special',topic:'Multiplication',name:'Special multipliers (25, 48, 125…)',target:13},
+ {id:'division',topic:'Division',name:'Division & divisibility',target:13},
+ {id:'add_sub',topic:'Addition & subtraction',name:'Multi-number addition/subtraction',target:14},
+ {id:'percent_direct',topic:'Percentages',name:'Percentage of a quantity',target:13},
+ {id:'percent_combo',topic:'Percentages',name:'Combined percentage calculations',target:18},
+ {id:'fraction_recall',topic:'Recall',name:'Fraction ↔ percentage recall',target:8},
+ {id:'table_recall',topic:'Recall',name:'Multiplication tables (1–25)',target:6},
+ {id:'square_cube',topic:'Recall',name:'Squares (1–40) and cubes (1–20)',target:8},
+ {id:'simplify',topic:'Simplification',name:'Cancellation & chained operations',target:16},
+ {id:'square_difference',topic:'Simplification',name:'Difference of squares',target:12}
+];
+const defaultLearning={schema:2,currentLevel:0,roundCounter:0,lastStageChangeRound:0,skills:{},recentAnswers:[]};
+const defaultStats={answered:0,correct:0,rounds:[]};
+const defaultRewards={xp:0,coins:0,badges:[],totalXpEarned:0};
+const dateKey=(date=new Date())=>`${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}-${String(date.getDate()).padStart(2,'0')}`;
+const dayOffset=(key)=>{const [y,m,d]=key.split('-').map(Number);return Math.floor(Date.UTC(y,m-1,d)/86400000);};
+let rewards=load(STORE.rewards,defaultRewards);if(!rewards||typeof rewards!=='object'||Array.isArray(rewards))rewards={...defaultRewards};
+rewards.xp=Number(rewards.xp)||0;rewards.coins=Number(rewards.coins)||0;if(!Array.isArray(rewards.badges))rewards.badges=[];
+let activity=load(STORE.activity,{});if(!activity||typeof activity!=='object'||Array.isArray(activity))activity={};
+let attemptsLog=load(STORE.attempts,[]);if(!Array.isArray(attemptsLog))attemptsLog=[];attemptsLog=attemptsLog.slice(-2500);
+let daily=load(STORE.daily,{date:dateKey(),answered:0,rounds:0,bestAccuracy:0,claimed:[]});
+if(!daily||typeof daily!=='object'||Array.isArray(daily)||daily.date!==dateKey())daily={date:dateKey(),answered:0,rounds:0,bestAccuracy:0,claimed:[]};
+daily.answered=Number(daily.answered)||0;daily.rounds=Number(daily.rounds)||0;daily.bestAccuracy=Number(daily.bestAccuracy)||0;
+if(!Array.isArray(daily.claimed))daily.claimed=[];
+let lastAward={xp:0,coins:0,badges:[],missions:[]};
+let learning=load(STORE.learning,defaultLearning);
+let stats=load(STORE.stats,defaultStats);
+let seen=load(STORE.seen,[]);
+if(!learning||typeof learning!=='object'||!learning.schema||!learning.skills||typeof learning.skills!=='object'||Array.isArray(learning.skills)){learning=JSON.parse(JSON.stringify(defaultLearning));}
+if(!Array.isArray(learning.recentAnswers))learning.recentAnswers=[];
+if(!Number.isFinite(learning.currentLevel))learning.currentLevel=0;
+if(!Number.isFinite(learning.roundCounter))learning.roundCounter=0;
+if(!Number.isFinite(learning.lastStageChangeRound))learning.lastStageChangeRound=0;
+if(!Array.isArray(seen))seen=[];
+let seenSet=new Set(seen);
+if(!stats||typeof stats!=='object'||Array.isArray(stats)||!Array.isArray(stats.rounds))stats=JSON.parse(JSON.stringify(defaultStats));
+stats.answered=Number(stats.answered)||0;stats.correct=Number(stats.correct)||0;
+stats.rounds=stats.rounds.filter(r=>r&&typeof r==='object').map(r=>({...r,avgSeconds:Number(r.avgSeconds)||20,accuracy:Number.isFinite(r.accuracy)?r.accuracy:(r.total?(r.correct||0)/r.total:0)})).slice(0,100);
+Object.keys(learning.skills).forEach(k=>{let m=learning.skills[k];if(!m||typeof m!=='object'||Array.isArray(m))m=learning.skills[k]={attempts:0,correct:0,avgMs:0,recent:[],errorDebt:0,offset:0,lastSeen:0,dueAt:0,fastStreak:0,slowStreak:0,intervalHours:0,ease:2.1,skips:0,wrong:0};m.attempts=Number(m.attempts)||0;m.correct=Number(m.correct)||0;m.avgMs=Number(m.avgMs)||0;m.errorDebt=Number(m.errorDebt)||0;m.offset=Number(m.offset)||0;m.dueAt=Number(m.dueAt)||0;m.recent=Array.isArray(m.recent)?m.recent:[];m.intervalHours=Number(m.intervalHours)||0;m.ease=Number(m.ease)||2.1;m.skips=Number(m.skips)||0;m.wrong=Number(m.wrong)||0;});
+let topic='Mixed',deck=[],idx=0,correct=0,wrong=0,roundAnswers=[],roundStart=0,qStart=0,totalAnswerMs=0,tick=null,locked=false;
+let showHints=$('hints')?.checked!==false;
+const currentLevel=()=>clamp(Number(learning.currentLevel)||0,0,2);
+const levelName=()=>levelNames[currentLevel()];
+function modelFor(skillId){
+ if(!learning.skills[skillId]) learning.skills[skillId]={
+  attempts:0,correct:0,avgMs:0,recent:[],errorDebt:0,offset:0,lastSeen:0,dueAt:0,fastStreak:0,slowStreak:0,intervalHours:0,ease:2.1,skips:0,wrong:0
+ };
+ return learning.skills[skillId];
+}
+function saveAll(){save(STORE.learning,learning);save(STORE.stats,stats);save(STORE.seen,seen.slice(-12000));save(STORE.rewards,rewards);save(STORE.daily,daily);save(STORE.activity,activity);save(STORE.attempts,attemptsLog.slice(-2500));}
+function skillDifficulty(skillId){const m=modelFor(skillId);return clamp(currentLevel()+Number(m.offset||0),0,2);}
+function targetMs(skillId,diff){const s=SKILLS.find(x=>x.id===skillId);return (s?.target||13)*1000*(1+diff*.18);}
+function skillWeakness(skillId){
+ const m=modelFor(skillId);
+ if(!m.attempts)return .68;
+ const acc=(m.correct+1)/(m.attempts+2);
+ const recent=m.recent.slice(-8);
+ const recentMiss=recent.length?1-recent.filter(x=>x.ok).length/recent.length:1-acc;
+ const timeRatio=m.avgMs?m.avgMs/targetMs(skillId,skillDifficulty(skillId)):1;
+ const slow=clamp((timeRatio-.65)/1.1,0,1);
+ const due=(m.dueAt>0&&m.dueAt<=Date.now())?0.12:0;
+ const newSkill=m.attempts<5 ? 0.12 : 0;
+ return clamp((1-acc)*.42+recentMiss*.25+slow*.22+due+newSkill,0,1);
+}
+function topicSkillPool(topicName){
+ if(topicName==='Mixed')return SKILLS;
+ if(topicName==='Recall')return SKILLS.filter(s=>s.topic==='Recall');
+ return SKILLS.filter(s=>s.topic===topicName);
+}
+function weightFor(skill){
+ const m=modelFor(skill.id);
+ // Keep first-seen skills in rotation, but give recorded weaknesses a clear priority.
+ if(!m.attempts)return 1.9;
+ // Due reviews and persistent error debt receive meaningful weight across future sessions.
+ const due=m.dueAt>0&&m.dueAt<=Date.now()?2.8:0;
+ return .65+skillWeakness(skill.id)*8+Math.min(5,m.errorDebt*.6)+due;
+}
+function chooseSkill(pool,lastSkill,counts){
+ let available=pool.filter(s=>s.id!==lastSkill || pool.length===1);
+ // Avoid drilling one area relentlessly even when it is the weakest.
+ const total=available.reduce((sum,s)=>sum+weightFor(s)/(1+(counts[s.id]||0)*.34),0);
+ let r=Math.random()*total;
+ for(const s of available){r-=weightFor(s)/(1+(counts[s.id]||0)*.34);if(r<=0)return s;}
+ return available[available.length-1];
+}
+function makeQ(expr,answer,method,skillId,extra={}){
+ return {expr,answer,method,skillId,skillName:SKILLS.find(s=>s.id===skillId)?.name||skillId,...extra};
+}
+function genMultiplication(skillId,d){
+ let a,b,method;
+ if(skillId==='mul_basic'){
+  if(d===0){a=rand(12,68);b=rand(3,18);}
+  else if(d===1){a=rand(24,189);b=rand(12,39);}
+  else{a=rand(105,999);b=rand(16,89);}
+  return makeQ(`${a.toLocaleString('en-IN')} × ${b}`,a*b,`Split one factor into tens and units, or use a nearby round number. ${a} × ${b} = ${(a*b).toLocaleString('en-IN')}.`,skillId);
+ }
+ const factors=d===0?[16,18,20,24,25,32,40,48,50,64,75,80,99,100,125]:d===1?[24,25,32,40,48,64,75,80,96,99,125,144,250,625]:[25,48,64,75,96,99,125,144,225,250,625,999,1001];
+ a=d===0?rand(12,89):d===1?rand(35,249):rand(105,999);
+ b=pick(factors);
+ return makeQ(`${a.toLocaleString('en-IN')} × ${b}`,a*b,`Look for a factorisation or a nearby base. ${a} × ${b} = ${(a*b).toLocaleString('en-IN')}.`,skillId);
+}
+function genDivision(d){
+ const divisor=d===0?pick([6,8,9,12,15,16,18,20,24,25,32,36,40,48]):d===1?pick([12,14,15,16,18,20,24,25,28,32,36,40,48,64,75,80,125,144]):pick([16,18,24,28,32,36,48,56,64,72,75,84,96,125,144,175,225]);
+ const quotient=d===0?rand(12,85):d===1?rand(35,245):rand(125,999);
+ const dividend=divisor*quotient;
+ return makeQ(`${dividend.toLocaleString('en-IN')} ÷ ${divisor}`,quotient,`Break the divisor into convenient factors where possible. ${dividend.toLocaleString('en-IN')} ÷ ${divisor} = ${quotient}.`,'division');
+}
+function genAddSub(d){
+ const min=d===0?900:d===1?3500:12000,max=d===0?9500:d===1?85000:450000;
+ const a=rand(min,max),b=rand(min,max),floor=Math.min(a,b);
+ const c=rand(Math.floor(floor*.18),Math.max(Math.floor(floor*.2),Math.floor(floor*.48)));
+ const d2=rand(Math.floor(floor*.08),Math.max(Math.floor(floor*.1),Math.floor(floor*.22)));
+ const answer=a+b-c+d2;
+ const expr=`${a.toLocaleString('en-IN')} + ${b.toLocaleString('en-IN')} − ${c.toLocaleString('en-IN')} + ${d2.toLocaleString('en-IN')}`;
+ return makeQ(expr,answer,`Pair numbers to make round hundreds or thousands, then subtract and add the remaining terms. Result: ${answer.toLocaleString('en-IN')}.`,'add_sub');
+}
+function genPercentDirect(d){
+ const item=pick(fractionRows);
+ const multiplier=d===0?rand(20,110):d===1?rand(40,220):rand(75,450);
+ const base=item.d*multiplier;
+ const answer=base*item.n/item.d;
+ const pct=item.percent;
+ return makeQ(`${pctText(pct)} of ${base.toLocaleString('en-IN')}`,answer,`Recognise ${item.label} as the fraction for ${pctText(pct)}. Divide ${base.toLocaleString('en-IN')} by ${item.d}, then multiply by ${item.n}. Answer: ${answer.toLocaleString('en-IN')}.`,'percent_direct');
+}
+function genPercentCombo(d){
+ const x=pick(fractionRows.filter(f=>f.d<=16)),y=pick(fractionRows.filter(f=>f.d<=16));
+ const base1=x.d*rand(d===0?20:40,d===0?100:d===1?180:350);
+ const base2=y.d*rand(d===0?15:35,d===0?90:d===1?160:300);
+ const sign=Math.random()<.5?1:-1;
+ const answer=base1*x.n/x.d+sign*base2*y.n/y.d;
+ return makeQ(`${pctText(x.percent)} of ${base1.toLocaleString('en-IN')} ${sign>0?'+':'−'} ${pctText(y.percent)} of ${base2.toLocaleString('en-IN')}`,answer,`Convert both percentages into fractions. Calculate each part separately, then ${sign>0?'add':'subtract'} the results. Answer: ${fmt(answer)}.`,'percent_combo');
+}
+function genFractionRecall(){
+ const f=pick(fractionRows);
+ if(Math.random()<.5){
+  return makeQ(`${f.label} = ?%`,f.percent,`Multiply by 100: ${f.n}/${f.d} × 100 = ${pctText(f.percent)}.`,'fraction_recall');
+ }
+ return makeQ(`${pctText(f.percent)} = ? (simplest fraction)`,f.label,`Divide the percentage by 100 and simplify: ${pctText(f.percent)} = ${f.label}.`,'fraction_recall');
+}
+function genTableRecall(){
+ const a=rand(1,25),b=rand(1,25);
+ return makeQ(`${a} × ${b}`,a*b,`Recall the ${a} times table: ${a} × ${b} = ${a*b}.`,'table_recall');
+}
+function genSquareCube(){
+ if(Math.random()<.68){
+  const n=rand(1,40);return makeQ(`${n}²`,n*n,`Square ${n}: ${n} × ${n} = ${n*n}.`,'square_cube');
+ }
+ const n=rand(1,20);return makeQ(`${n}³`,n*n*n,`Cube ${n}: ${n} × ${n} × ${n} = ${n*n*n}.`,'square_cube');
+}
+function genSimplify(d){
+ const mode=pick(['cancel','chain']);
+ let a,b,c,ans,expr,method;
+ if(mode==='cancel'){
+  a=pick(d===0?[24,32,48,64,72,96,125,144]:[48,64,72,96,125,144,225,256,375,625]);
+  b=pick([25,32,40,48,64,75,80,125]);
+  c=pick([4,5,6,8,10,12,15,16,20,24,25]);
+  ans=a*b/c;
+  if(!Number.isInteger(ans))return genSimplify(d);
+  expr=`${a} × ${b} ÷ ${c}`;method=`Cancel common factors before multiplying. ${a} × ${b} ÷ ${c} = ${ans}.`;
+ }else if(mode==='chain'){
+  b=pick([12,15,16,18,20,24,25,32,40,48,64,75,80,125]);
+  c=pick([2,3,4,5,6,8,10,12,15]);
+  a=c*rand(d===0?8:20,d===0?45:d===1?110:250);
+  ans=a/c*b;expr=`${a} ÷ ${c} × ${b}`;method=`Work left to right, or simplify the division first. Answer: ${fmt(ans)}.`;
+ }else{
+  a=rand(d===0?16:d===1?25:40,d===0?32:d===1?48:75);
+  b=rand(d===0?6:d===1?12:18,Math.max(d===0?7:d===1?13:19,a-1));
+  ans=a*a-b*b;expr=`${a}² − ${b}²`;method=`Use difference of squares: (${a} − ${b}) × (${a} + ${b}) = ${ans}.`;
+ }
+ return makeQ(expr,ans,method,'simplify');
+}
+const generators={
+ mul_basic:d=>genMultiplication('mul_basic',d),
+ mul_special:d=>genMultiplication('mul_special',d),
+ division:d=>genDivision(d),
+ add_sub:d=>genAddSub(d),
+ percent_direct:d=>genPercentDirect(d),
+ percent_combo:d=>genPercentCombo(d),
+ fraction_recall:()=>genFractionRecall(),
+ table_recall:()=>genTableRecall(),
+ square_cube:()=>genSquareCube(),
+ simplify:d=>genSimplify(d),
+ square_difference:d=>{const a=rand(d===0?16:d===1?25:40,d===0?32:d===1?48:75);const b=rand(d===0?6:d===1?12:18,Math.max(d===0?7:d===1?13:19,a-1));const ans=a*a-b*b;return makeQ(`${a}² − ${b}²`,ans,`Use difference of squares: (${a} − ${b}) × (${a} + ${b}) = ${ans}.`,'square_difference');}
+};
+function questionKey(q){return `${q.expr.replace(/\s+/g,'').toLowerCase()}=${String(q.answer).replace(/\s+/g,'').toLowerCase()}`;}
+function buildDeck(){
+ const pool=topicSkillPool(topic);
+ const size=Number($('duration').value);
+ const out=[],within=new Set(),counts={};
+ let lastSkill='',attempts=0;
+ while(out.length<size&&attempts<size*180){
+  attempts++;
+  const skill=chooseSkill(pool,lastSkill,counts);
+  const d=skillDifficulty(skill.id);
+  let q=generators[skill.id](d);
+  const key=questionKey(q);
+  if(within.has(key)||seenSet.has(key))continue;
+  q.topic=skill.topic;q.difficulty=d;q.sessionLevel=levelName();
+  out.push(q);within.add(key);counts[skill.id]=(counts[skill.id]||0)+1;lastSkill=skill.id;
+ }
+ // If the stored history is exhausted for a finite recall bank, still avoid repeats inside this round.
+ attempts=0;
+ while(out.length<size&&attempts<size*180){
+  attempts++;
+  const skill=chooseSkill(pool,lastSkill,counts);
+  let q=generators[skill.id](skillDifficulty(skill.id)),key=questionKey(q);
+  if(within.has(key))continue;
+  q.topic=skill.topic;q.difficulty=skillDifficulty(skill.id);q.sessionLevel=levelName();
+  out.push(q);within.add(key);counts[skill.id]=(counts[skill.id]||0)+1;lastSkill=skill.id;
+ }
+ return out;
+}
+function refreshLevelUI(){
+ document.querySelectorAll('.level').forEach(b=>b.classList.toggle('active',levelNames[currentLevel()]===b.dataset.level));
+ $('levelSummary').textContent=levelName()+' • '+(topic==='Mixed'?'Mixed calculations':topic);
+ $('levelDescription').textContent=levelDescriptions[currentLevel()];
+ $('adaptiveTier').textContent=levelName();
+}
+function showView(id){
+ const target=$(id);if(!target)return;
+ document.querySelectorAll('.view').forEach(v=>{const visible=v===target;v.classList.toggle('active',visible);v.style.display=visible?'block':'none';});
+ const immersive=id==='quiz'||id==='results';
+ $('appHeader').style.display=immersive?'none':'block';
+ $('heroCopy').style.display=id==='home'?'block':'none';
+ $('bottomNav').style.display=id==='quiz'?'none':'flex';
+ $('appRoot').style.paddingBottom=id==='quiz'?'28px':'116px';
+ const navId=(id==='quiz'||id==='results')?'home':id;
+ document.querySelectorAll('.navbtn').forEach(b=>b.classList.toggle('active',b.dataset.view===navId));
+ if(id==='progressView')renderProgress();
+ if(id==='rewardsView')renderRewards();
+ if(id==='home')renderHomeWidgets();
+ window.scrollTo({top:0,behavior:'smooth'});
+}
+document.querySelectorAll('.navbtn').forEach(b=>b.onclick=()=>showView(b.dataset.view));
+document.querySelectorAll('[data-shortcut=\"rewards\"]').forEach(b=>b.addEventListener('click',()=>showView('rewardsView')));
+$('toRewards').onclick=()=>showView('rewardsView');
+document.querySelectorAll('.level').forEach(b=>b.onclick=()=>{
+ const chosen=levelNames.indexOf(b.dataset.level);
+ if(chosen<0)return;
+ learning.currentLevel=chosen;saveAll();refreshLevelUI();updateStats();
+});
+document.querySelectorAll('.chip').forEach(b=>b.onclick=()=>{
+ topic=b.dataset.topic;
+ document.querySelectorAll('.chip').forEach(x=>x.classList.toggle('active',x===b));
+ refreshLevelUI();
+});
+function renderQuestion(){
+ const q=deck[idx];if(!q){finishRound();return;}
+ qStart=performance.now();locked=false;
+ $('quizMeta').textContent=`${q.sessionLevel} • ${q.skillName}`;
+ $('qCount').textContent=`Question ${idx+1} of ${deck.length}`;
+ $('score').textContent=`${correct} correct`;
+ $('question').textContent=q.expr;
+ $('answer').value='';
+ $('feedback').textContent='';
+ $('feedback').className='feedback';
+ $('solution').style.display='none';$('solution').textContent='';
+ $('check').disabled=false;
+ $('sessionProgress').style.width=(idx/deck.length*100)+'%';
+ $('answer').focus({preventScroll:true});
+}
+function isAnswerCorrect(input,expected){
+ if(typeof expected==='string')return input.trim().replace(/\s+/g,'').toLowerCase()===expected.toLowerCase();
+ const n=Number(input.replace(/,/g,''));
+ return input.trim()!==''&&Number.isFinite(n)&&Math.abs(n-expected)<=Math.max(.03,Math.abs(expected)*.00001);
+}
+function updateSkillAfterAnswer(q,ok,ms,skipped){
+ const m=modelFor(q.skillId),now=Date.now(),d=q.difficulty;
+ m.attempts++;if(ok)m.correct++;if(skipped)m.skips=(m.skips||0)+1;else if(!ok)m.wrong=(m.wrong||0)+1;
+ m.avgMs=m.avgMs?m.avgMs*.72+ms*.28:ms;
+ m.recent.push({ok,skipped,ms,d,at:now});m.recent=m.recent.slice(-20);
+ m.lastSeen=now;
+ const target=targetMs(q.skillId,d);
+ if(!ok){
+  m.errorDebt=Math.min(14,(m.errorDebt||0)+(skipped?1.5:1.15));m.intervalHours=.33;m.dueAt=now+20*60*1000;m.ease=Math.max(1.3,(m.ease||2.1)-.18);m.fastStreak=0;m.slowStreak=(m.slowStreak||0)+1;
+ }else{
+  const fast=ms<target*.82,slow=ms>target*1.25;
+  m.errorDebt=Math.max(0,(m.errorDebt||0)-(fast?.75:.32));
+  m.ease=Math.min(2.65,Math.max(1.3,(m.ease||2.1)+(fast?.07:slow?-.06:0)));
+  m.intervalHours=m.intervalHours?Math.min(24*30,m.intervalHours*m.ease*(slow?.72:1.08)): (fast?10:5);
+  m.dueAt=now+m.intervalHours*60*60*1000;
+  m.fastStreak=fast?(m.fastStreak||0)+1:0;m.slowStreak=slow?(m.slowStreak||0)+1:0;
+ }
+ const recent=m.recent.slice(-10),n=recent.length,acc=n?recent.filter(x=>x.ok).length/n:0,avg=n?recent.reduce((sum,x)=>sum+x.ms,0)/n:ms;
+ if(n>=7&&acc>=.86&&avg<target*.88)m.offset=clamp((m.offset||0)+1,-1,1);
+ else if((n>=6&&acc<.55)||(m.slowStreak>=4))m.offset=clamp((m.offset||0)-1,-1,1);
+ learning.recentAnswers.unshift({skill:q.skillId,ok,skipped,ms,at:now,level:q.sessionLevel||levelName()});learning.recentAnswers=learning.recentAnswers.slice(0,500);
+ attemptsLog.push({at:now,skill:q.skillId,skillName:q.skillName,expr:q.expr,answer:fmtAnswer(q.answer),ok,skipped,ms,difficulty:d,topic:q.topic||topic});
+ if(attemptsLog.length>2500)attemptsLog=attemptsLog.slice(-2000);
+}
+function answerCurrent(skipped=false){
+ if(locked||!deck[idx])return;locked=true;
+ const q=deck[idx],input=$('answer').value.trim(),ms=Math.max(250,performance.now()-qStart);
+ const ok=!skipped&&isAnswerCorrect(input,q.answer);
+ if(ok)correct++;else wrong++;
+ totalAnswerMs+=ms;
+ updateSkillAfterAnswer(q,ok,ms,skipped);
+ const key=questionKey(q);seen.push(key);seenSet.add(key);if(seen.length>12000){seen=seen.slice(-10000);seenSet=new Set(seen);}
+ stats.answered++;if(ok)stats.correct++;
+ saveAll();
+ roundAnswers.push({expr:q.expr,answer:typeof q.answer==='number'?fmt(q.answer):q.answer,user:skipped?'Skipped':input||'—',ok,method:q.method,skill:q.skillName,ms});
+ $('feedback').textContent=ok?'Correct ✓':skipped?`Skipped — answer: ${fmtAnswer(q.answer)}`:`Not quite — answer: ${fmtAnswer(q.answer)}`;
+ $('feedback').className='feedback '+(ok?'good':'bad');
+ $('solution').innerHTML=`<b>Quick method</b><br>${q.method}`;
+ $('solution').style.display=showHints?'block':'none';
+ $('check').disabled=true;$('score').textContent=`${correct} correct`;
+ setTimeout(()=>{if(roundCompleted)return;idx++;renderQuestion();},900);
+}
+function fmtAnswer(a){return typeof a==='number'?fmt(a):a;}
+$('check').onclick=()=>answerCurrent(false);
+$('skip').onclick=()=>answerCurrent(true);
+$('answer').addEventListener('keydown',e=>{if(e.key==='Enter'&&!locked)answerCurrent(false);});
+function startRound(){
+ try{
+  clearInterval(tick);
+  deck=buildDeck();
+  if(!deck.length){alert('Could not create a fresh set in this topic. Try another topic or clear the question history.');return;}
+  idx=correct=wrong=0;totalAnswerMs=0;roundAnswers=[];roundCompleted=false;
+  roundStart=Date.now();$('sessionProgress').style.width='0%';
+  $('runtimeIssue')?.classList.remove('visible');
+  showView('quiz');renderQuestion();clearInterval(tick);
+  tick=setInterval(()=>{
+   const s=Math.floor((Date.now()-roundStart)/1000);
+   $('clock').textContent=String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');
+  },500);
+ }catch(error){
+  console.error('NUMORA practice start failed',error);
+  const issue=$('runtimeIssue');
+  if(issue){issue.textContent='Practice could not start. Please close and reopen NUMORA. Your saved learning profile has not been reset.';issue.classList.add('visible');}
+ }
+}
+$('start').onclick=startRound;
+
+function adjustOverallDifficulty(round){
+ const recent=stats.rounds.slice(0,2);
+ const count=recent.reduce((s,r)=>s+r.total,0);
+ if(count<15||learning.roundCounter-(learning.lastStageChangeRound||0)<2)return;
+ const acc=recent.reduce((s,r)=>s+r.correct,0)/count;
+ const avg=recent.reduce((s,r)=>s+r.avgSeconds*r.total,0)/count;
+ const target=[14,17,20][currentLevel()];
+ if(acc>=.88&&avg<=target){
+  learning.currentLevel=clamp(currentLevel()+1,0,2);
+  learning.lastStageChangeRound=learning.roundCounter;
+ }else if(acc<.55||avg>target*1.55){
+  learning.currentLevel=clamp(currentLevel()-1,0,2);
+  learning.lastStageChangeRound=learning.roundCounter;
+ }
+}
+function updateAdaptivePanel(){
+ const ranked=SKILLS.map(s=>({s,m:modelFor(s.id),weak:skillWeakness(s.id)}))
+  .filter(x=>x.m.attempts>0).sort((a,b)=>b.weak-a.weak);
+ $('adaptiveStatus').textContent=learning.roundCounter<2?'Learning your patterns':'Adapting to your performance';
+ $('adaptiveTier').textContent=levelName();
+ $('adaptiveSummary').textContent=ranked.length?
+  'The next mixed tests will deliberately give more weight to weak, slow or recently missed skills. Strong, fast areas stay in rotation but appear less often.':
+  'Complete your first practice round. The coach will start building a skill-by-skill profile.';
+ $('weakAreas').textContent=ranked.length?'Next focus: '+ranked.slice(0,3).map(x=>`${x.s.name} · ${Math.round((1-x.weak)*100)}% mastery`).join('  |  '):'No skill profile yet.';
+}
+const BADGES=[
+ {id:'first_sprint',icon:'🚀',name:'First Launch',desc:'Complete your first practice sprint.'},
+ {id:'sharp_mind',icon:'🎯',name:'Sharp Mind',desc:'Score at least 90% in a sprint.'},
+ {id:'perfect_run',icon:'💎',name:'Perfect Run',desc:'Get every question in a sprint correct.'},
+ {id:'century',icon:'⚡',name:'Century Club',desc:'Answer 100 questions.'},
+ {id:'ten_sprints',icon:'🏆',name:'Consistency Wins',desc:'Complete 10 practice sprints.'},
+ {id:'week_streak',icon:'🔥',name:'Seven-Day Spark',desc:'Practise on seven consecutive days.'}
+];
+function currentStreak(){
+ const keys=Object.keys(activity).filter(k=>activity[k]?.rounds>0).sort((a,b)=>dayOffset(b)-dayOffset(a));
+ if(!keys.length)return 0;
+ const today=dayOffset(dateKey()),first=dayOffset(keys[0]);if(today-first>1)return 0;
+ let streak=0,expected=first;
+ for(const key of keys){const day=dayOffset(key);if(day===expected){streak++;expected--;}else if(day<expected)break;}
+ return streak;
+}
+function currentRank(){const level=Math.floor((rewards.xp||0)/250)+1;const within=(rewards.xp||0)%250;const names=['NUMORA NOVICE','FOCUSED THINKER','PATTERN FINDER','MENTAL ATHLETE','CALCULATION ACE','NUMORA ELITE'];return {level,within,remaining:250-within,name:names[Math.min(names.length-1,Math.floor((level-1)/2))]};}
+function grantBadge(id){if(rewards.badges.includes(id))return false;const badge=BADGES.find(x=>x.id===id);if(!badge)return false;rewards.badges.push(id);rewards.xp+=75;rewards.coins+=20;rewards.totalXpEarned=(rewards.totalXpEarned||0)+75;lastAward.badges.push(badge);return true;}
+function missionCheck(id,condition,rewardXp,rewardCoins){if(condition&&!daily.claimed.includes(id)){daily.claimed.push(id);rewards.xp+=rewardXp;rewards.totalXpEarned=(rewards.totalXpEarned||0)+rewardXp;rewards.coins+=rewardCoins;lastAward.missions.push({id,xp:rewardXp,coins:rewardCoins});return true;}return false;}
+function awardRound(roundAccuracy,avgSeconds,total){
+ lastAward={xp:0,coins:0,badges:[],missions:[]};
+ const target=[14,17,20][currentLevel()];
+ const xp=correct*8+(roundAccuracy>=.7?20:0)+(roundAccuracy>=.9?25:0)+Math.max(0,Math.min(20,Math.round((target-avgSeconds)*2)));
+ const coins=correct*2+(roundAccuracy>=.8?10:0)+(roundAccuracy===1?10:0);
+ rewards.xp+=xp;rewards.coins+=coins;rewards.totalXpEarned=(rewards.totalXpEarned||0)+xp;lastAward.xp=xp;lastAward.coins=coins;
+ const key=dateKey();if(!activity[key])activity[key]={answered:0,correct:0,rounds:0,xp:0};
+ activity[key].answered+=total;activity[key].correct+=correct;activity[key].rounds+=1;activity[key].xp+=xp;
+ if(daily.date!==key)daily={date:key,answered:0,rounds:0,bestAccuracy:0,claimed:[]};
+ daily.answered+=total;daily.rounds+=1;daily.bestAccuracy=Math.max(daily.bestAccuracy||0,roundAccuracy);
+ missionCheck('ten_questions',daily.answered>=10,30,8);
+ missionCheck('precision',daily.bestAccuracy>=.8,40,10);
+ missionCheck('two_sprints',daily.rounds>=2,50,15);
+ const totalRounds=stats.rounds.length;
+ grantBadge('first_sprint');if(roundAccuracy>=.9)grantBadge('sharp_mind');if(roundAccuracy===1)grantBadge('perfect_run');if(stats.answered>=100)grantBadge('century');if(totalRounds>=10)grantBadge('ten_sprints');if(currentStreak()>=7)grantBadge('week_streak');
+ saveAll();
+}
+function renderHomeWidgets(){
+ const streak=currentStreak(),rank=currentRank();
+ if($('streak'))$('streak').textContent=`${streak} day${streak===1?'':'s'} streak`;
+ if($('xpTop'))$('xpTop').textContent=`${rewards.xp} XP`;
+ if($('levelTop'))$('levelTop').textContent=`LEVEL ${String(rank.level).padStart(2,'0')} · ${rank.name.replace('NUMORA ','')}`;
+ if($('xpProgressLabel'))$('xpProgressLabel').textContent=`${rank.within} / 250 XP`;
+ if($('xpTopBar'))$('xpTopBar').style.width=(rank.within/250*100)+'%';
+ const missions=[{id:'ten_questions',title:'Warm up your brain',progress:Math.min(10,daily.answered||0),goal:10,label:'questions answered',xp:30},{id:'precision',title:'Precision practice',progress:(daily.bestAccuracy||0)>=.8?1:0,goal:1,label:'sprint at 80% accuracy',xp:40},{id:'two_sprints',title:'Show up twice',progress:Math.min(2,daily.rounds||0),goal:2,label:'sprints completed',xp:50}];
+ const m=missions.find(x=>!daily.claimed.includes(x.id))||missions[0];const pct=Math.round(m.progress/m.goal*100);
+ if($('questTitle'))$('questTitle').textContent=m.title;
+ if($('questReward'))$('questReward').textContent=daily.claimed.includes(m.id)?'COMPLETED':`+${m.xp} XP`;
+ if($('questProgress'))$('questProgress').textContent=`${m.progress} / ${m.goal} ${m.label}`;
+ if($('questPercent'))$('questPercent').textContent=pct+'%';
+ if($('questBar'))$('questBar').style.width=pct+'%';
+}
+function renderRewards(){
+ const rank=currentRank();
+ $('rankLevel').textContent=String(rank.level).padStart(2,'0');$('rankName').textContent=rank.name;
+ $('rankXP').textContent=`${rank.within} / 250 XP`; $('rankNext').textContent=`${rank.remaining} XP to next level`;$('rankBar').style.width=(rank.within/250*100)+'%';
+ $('coinBalance').textContent=rewards.coins.toLocaleString('en-IN');$('badgeCount').textContent=`${rewards.badges.length} / ${BADGES.length}`;
+ $('badgesGrid').innerHTML=BADGES.map(b=>{const unlocked=rewards.badges.includes(b.id);return `<div class="badge-card ${unlocked?'unlocked':''}"><div class="badge-icon">${b.icon}</div><b>${b.name}</b><small>${unlocked?'Unlocked · Keep it up':b.desc}</small></div>`;}).join('');
+}
+let roundCompleted=false;
+function finishRound(){
+ if(roundCompleted)return;roundCompleted=true;clearInterval(tick);
+ const total=roundAnswers.length;
+ if(!total){showView('home');return;}
+ const accuracy=total?correct/total:0,avgSeconds=total?totalAnswerMs/total/1000:0;
+ learning.roundCounter++;
+ const completedLevel=deck[0]?.sessionLevel||levelName();
+ stats.rounds.unshift({date:new Date().toISOString(),level:completedLevel,topic,correct,total,accuracy,avgSeconds});
+ stats.rounds=stats.rounds.slice(0,100);
+ awardRound(accuracy,avgSeconds,total);
+ adjustOverallDifficulty(stats.rounds[0]);
+ saveAll();
+ $('sessionProgress').style.width='100%';
+ const pct=Math.round(accuracy*100);
+ $('resultPct').textContent=pct+'%';
+ $('resultTitle').textContent=pct>=95?'Outstanding control. Keep raising the bar.':pct>=80?'Strong session. Your consistency is building.':pct>=65?'Good effort. Your coach has a clearer picture now.':'Every attempt teaches your coach what to revisit next.';
+ $('resultText').textContent=`${completedLevel} · ${topic} · ${total} questions answered.`;
+ $('rCorrect').textContent=correct;$('rWrong').textContent=wrong;$('rTime').textContent=avgSeconds.toFixed(1)+'s';
+ $('earnedXP').textContent=`+${lastAward.xp+(lastAward.missions||[]).reduce((n,x)=>n+x.xp,0)+(lastAward.badges||[]).length*75} XP earned`;
+ $('earnedCoins').textContent=`+${lastAward.coins+(lastAward.missions||[]).reduce((n,x)=>n+x.coins,0)+(lastAward.badges||[]).length*20} coins`;
+ const badgeBox=$('badgeUnlock');const unlocked=(lastAward.badges||[]);
+ if(unlocked.length){badgeBox.textContent='✧ Badge unlocked: '+unlocked.map(x=>x.name).join(' · ');badgeBox.classList.add('visible');}else{badgeBox.classList.remove('visible');badgeBox.textContent='';}
+ const missionMsg=(lastAward.missions||[]).length?` Daily mission completed: ${(lastAward.missions||[]).map(x=>x.id.replaceAll('_',' ')).join(', ')}.`:'';
+ $('resultText').textContent+=missionMsg;
+ $('review').innerHTML=roundAnswers.map((r,i)=>`<div class="historyitem"><span>${i+1}. ${r.expr}<br><span class="muted">${r.skill} · ${r.user}</span><br><span class="muted">${r.ms/1000<10?(r.ms/1000).toFixed(1):Math.round(r.ms/1000)}s</span></span><b style="color:${r.ok?'var(--green)':'var(--red)'}">${r.ok?'✓':r.answer}</b></div>`).join('');
+ showView('results');updateStats();refreshLevelUI();
+}
+$('endRound').onclick=()=>{if(confirm('End this round and review your results?'))finishRound();};
+$('again').onclick=startRound;
+$('toHome').onclick=()=>showView('home');
+function updateStats(){
+ const accuracy=stats.answered?Math.round(stats.correct/stats.answered*100):0;
+ updateAdaptivePanel();
+ $('totalDone').textContent=stats.answered;$('accuracy').textContent=stats.answered?accuracy+'%':'—';
+ $('bestStreak').textContent=stats.rounds.length?Math.max(...stats.rounds.map(r=>r.correct)):0;
+ renderHomeWidgets();
+}
+function renderProgress(){
+ updateStats();
+ $('pAnswered').textContent=stats.answered;$('pAccuracy').textContent=stats.answered?Math.round(stats.correct/stats.answered*100)+'%':'—';$('pRounds').textContent=stats.rounds.length;$('pStreak').textContent=currentStreak()+' days';
+ const days=[];for(let i=6;i>=0;i--){const d=new Date();d.setDate(d.getDate()-i);const key=dateKey(d);days.push({key,label:['Sun','Mon','Tue','Wed','Thu','Fri','Sat'][d.getDay()],value:activity[key]?.answered||0});}
+ const max=Math.max(1,...days.map(x=>x.value));$('activityChart').innerHTML=days.map(x=>`<div class="activity-col"><div class="activity-bar" style="height:${Math.max(4,x.value/max*64)}px;opacity:${x.value?1:.25}"></div><small>${x.label}</small></div>`).join('');
+ $('history').innerHTML=stats.rounds.length?stats.rounds.slice(0,15).map(r=>`<div class="historyitem"><span>${new Date(r.date).toLocaleDateString()}<br><span class="muted">${r.level} · ${r.topic} · ${Number(r.avgSeconds||0).toFixed(1)}s avg</span></span><b>${r.correct}/${r.total}</b></div>`).join(''):'<div class="empty">Complete your first sprint to build your progress history.</div>';
+ const focus=SKILLS.map(s=>({s,m:modelFor(s.id),weak:skillWeakness(s.id)})).filter(x=>x.m.attempts>0).sort((a,b)=>a.weak-b.weak);
+ $('bankList').innerHTML=focus.length?focus.map(x=>`<div class="skill-row"><div class="skill-name">${x.s.name}<small>${x.m.attempts} attempts · ${Math.round((x.m.avgMs||0)/1000)}s avg · ${x.m.dueAt>Date.now()?'review scheduled':'review due'}</small></div><div class="skill-bar"><span style="width:${Math.round((1-x.weak)*100)}%"></span></div><div class="skill-score">${Math.round((1-x.weak)*100)}%</div></div>`).join(''):'<div class="empty">Your skill map will appear after your first few answers.</div>';
+ if($('memorySkills'))$('memorySkills').textContent=focus.length;
+ if($('memoryDue'))$('memoryDue').textContent=SKILLS.filter(x=>modelFor(x.id).attempts>0&&modelFor(x.id).dueAt>0&&modelFor(x.id).dueAt<=Date.now()).length;
+ if($('memorySaved'))$('memorySaved').textContent=(learning.recentAnswers||[]).length.toLocaleString('en-IN');
+}
+$('hints').onchange=e=>showHints=e.target.checked;
+$('clearHistory').onclick=()=>{
+ if(confirm('Clear only the no-repeat question history? Your learning profile will remain.')){seen=[];save(STORE.seen,seen);alert('Question history cleared.');}
+};
+$('resetStats').onclick=()=>{
+ if(confirm('Reset all learning memory, rewards, streaks and performance data? This cannot be undone.')){
+  learning=JSON.parse(JSON.stringify(defaultLearning));stats=JSON.parse(JSON.stringify(defaultStats));seen=[];rewards=JSON.parse(JSON.stringify(defaultRewards));activity={};attemptsLog=[];daily={date:dateKey(),answered:0,rounds:0,bestAccuracy:0,claimed:[]};
+  saveAll();updateStats();renderProgress();renderRewards();refreshLevelUI();showView('home');
+ }
+};
+$('exportProfile').onclick=()=>{
+ const backup={app:'NUMORA',version:3,exportedAt:new Date().toISOString(),learning,stats,seen,rewards,daily,activity,attemptsLog};
+ const payload=JSON.stringify(backup,null,2);
+ if(window.AndroidApp&&typeof window.AndroidApp.saveBackup==='function'){
+  window.AndroidApp.saveBackup(payload);
+ }else{
+  const blob=new Blob([payload],{type:'application/json'});
+  const url=URL.createObjectURL(blob),a=document.createElement('a');
+  a.href=url;a.download='numora-learning-backup.json';document.body.appendChild(a);a.click();a.remove();
+  setTimeout(()=>URL.revokeObjectURL(url),1500);
+ }
+};
+$('importProfile').onclick=()=>$('importFile').click();
+$('importFile').onchange=async e=>{
+ const file=e.target.files?.[0];if(!file)return;
+ try{
+  const data=JSON.parse(await file.text());
+  if(!['NUMORA','RBI Mental Maths'].includes(data.app)||!data.learning||!data.stats)throw new Error('This is not a recognised NUMORA learning backup.');
+  if(!confirm('Replace the learning profile on this device with the backup?'))return;
+  learning=data.learning&&typeof data.learning==='object'?data.learning:JSON.parse(JSON.stringify(defaultLearning));
+  learning.schema=2;if(!learning.skills||typeof learning.skills!=='object'||Array.isArray(learning.skills))learning.skills={};
+  if(!Array.isArray(learning.recentAnswers))learning.recentAnswers=[];if(!Number.isFinite(learning.currentLevel))learning.currentLevel=0;
+  Object.values(learning.skills).forEach(m=>{if(!m||typeof m!=='object')return;m.recent=Array.isArray(m.recent)?m.recent:[];m.attempts=Number(m.attempts)||0;m.correct=Number(m.correct)||0;m.avgMs=Number(m.avgMs)||0;m.errorDebt=Number(m.errorDebt)||0;m.intervalHours=Number(m.intervalHours)||0;m.ease=Number(m.ease)||2.1;m.skips=Number(m.skips)||0;m.wrong=Number(m.wrong)||0;});
+  stats=data.stats&&typeof data.stats==='object'?data.stats:JSON.parse(JSON.stringify(defaultStats));if(!Array.isArray(stats.rounds))stats.rounds=[];stats.answered=Number(stats.answered)||0;stats.correct=Number(stats.correct)||0;
+  seen=Array.isArray(data.seen)?data.seen:[];seenSet=new Set(seen);
+  rewards=data.rewards&&typeof data.rewards==='object'?{...defaultRewards,...data.rewards}:{...defaultRewards};if(!Array.isArray(rewards.badges))rewards.badges=[];rewards.xp=Number(rewards.xp)||0;rewards.coins=Number(rewards.coins)||0;
+  daily=data.daily&&typeof data.daily==='object'?data.daily:{date:dateKey(),answered:0,rounds:0,bestAccuracy:0,claimed:[]};if(!Array.isArray(daily.claimed))daily.claimed=[];
+  activity=data.activity&&typeof data.activity==='object'?data.activity:{};attemptsLog=Array.isArray(data.attemptsLog)?data.attemptsLog:[];
+  saveAll();updateStats();renderProgress();renderRewards();refreshLevelUI();alert('NUMORA learning profile restored.');
+ }catch(err){alert(err.message||'Could not import this backup.');}
+ e.target.value='';
+};
+function syncReminderUI(){
+ const supported=!!(window.AndroidApp&&typeof window.AndroidApp.setReminders==='function');
+ $('reminders').disabled=!supported;
+ $('reminderStatus').textContent=supported?
+  'The Android app can schedule a reminder approximately every three hours. Android battery optimisation may delay delivery.':
+  'Three-hour background reminders are enabled only in the installed Android app, not when this HTML is opened directly.';
+ if(supported){try{$('reminders').checked=!!window.AndroidApp.remindersEnabled();}catch{}}
+}
+$('reminders').onchange=e=>{
+ if(window.AndroidApp){window.AndroidApp.setReminders(!!e.target.checked);}
+ syncReminderUI();
+};
+refreshLevelUI();updateStats();syncReminderUI();renderRewards();showView('home');
+window.addEventListener('error',event=>{
+ const issue=$('runtimeIssue');
+ if(issue){issue.textContent='A practice component did not load. Close and reopen NUMORA. Your saved learning profile is still stored on this device.';issue.classList.add('visible');}
+ console.error('NUMORA runtime error',event.message,event.filename,event.lineno);
+});
+})();
+
+
+</script>
+</body>
+</html>

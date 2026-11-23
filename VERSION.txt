@@ -1,0 +1,6 @@
+NUMORA Swiss Edition
+Design revision: 2026-11-24
+App version: 2.1.0 (versionCode 4)
+Web runtime: offline HTML/CSS/JS in Android WebView
+Android application ID: com.archeepal.rbimentalcoach
+AGP: 9.5.0 stable; Gradle: 9.9.2; compile/target SDK: 36; AndroidX WebKit: 1.18.0
